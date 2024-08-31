@@ -9,5 +9,12 @@ export default defineNuxtConfig({
         {name: 'description', content: 'Soliatire implementation made with Nuxt'}
       ]
     }
-  }
+  },
+  css: ['~/assets/css/main.css'],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
 })
