@@ -1,5 +1,5 @@
 <template>
-  <div>
-    <h1>Welcome to the homepage</h1>
+  <div class="min-h-0">
+    <SolitaireGame />
   </div>
 </template>
