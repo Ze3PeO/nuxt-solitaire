@@ -4,8 +4,9 @@
     :class="{
       'card--cover': !flipped,
       'card--red': suit === 'diamonds' || suit === 'hearts',
-      'card--selected': selected,
+      'card--selected': selected && flipped,
     }"
+    @click="selected = !selected"
   >
     <div v-if="flipped" class="flex justify-between">
       <span>
@@ -25,21 +26,22 @@ const props = withDefaults(
   defineProps<{
     suit: Card["suit"];
     rank: Card["rank"];
-    flipped: boolean;
-    selected: boolean;
+    flipped: Card["flipped"];
   }>(),
   {
     suit: "clubs",
     rank: 0,
     flipped: false,
-    selected: false,
   }
 );
+
+// ToDo Emit slect event, maybe use focus state for selected
+const selected = ref(false);
 </script>
 
 <style lang="postcss" scoped>
 .card {
-  @apply aspect-[5/7] text-black rounded p-1 bg-white border-2 border-slate-300 shadow-md;
+  @apply select-none aspect-[5/7] text-black rounded p-1 bg-white border-2 border-slate-300 shadow-md;
 }
 
 .card--cover {

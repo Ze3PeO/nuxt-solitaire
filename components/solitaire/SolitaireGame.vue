@@ -10,8 +10,7 @@
     </div>
     <div></div>
     <div class="col-span-2 grid grid-cols-2 gap-1">
-      <SolitaireCard :flipped="true" />
-      <SolitaireCard />
+      <SolitaireCard v-for="card in cards" v-bind="card" />
     </div>
     <div class="col-span-7 grid grid-cols-7 gap-1">
       <SolitaireCard :flipped="true" :rank="2" />
@@ -24,3 +23,7 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const { cards } = useSolitaire();
+</script>
