@@ -10,7 +10,8 @@
     </div>
     <div></div>
     <div class="col-span-2 grid grid-cols-2 gap-1">
-      <SolitaireCard v-for="card in cards" v-bind="card" />
+      <SolitaireCard v-for="card in game.waste.cards" v-bind="card" />
+      <SolitaireCard v-for="card in game.stock.cards" v-bind="card" />
     </div>
     <div class="col-span-7 grid grid-cols-7 gap-1">
       <SolitaireCard :flipped="true" :rank="2" />
@@ -25,5 +26,5 @@
 </template>
 
 <script setup lang="ts">
-const { cards } = useSolitaire();
+const { game } = useSolitaire();
 </script>
