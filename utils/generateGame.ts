@@ -1,4 +1,4 @@
-import { Suits, type Card, type Suit } from "~/assets/types/card";
+import { Suits, type Card, type Suit } from "@/assets/types/card";
 import type { Game, Pile } from "~/assets/types/game";
 
 export default function (): Game {
@@ -12,6 +12,7 @@ export default function (): Game {
         suit,
         rank,
         flipped: false,
+        id: useId(),
       });
     });
   });

@@ -6,7 +6,14 @@
       'card--red': suit === 'diamonds' || suit === 'hearts',
       'card--selected': selected && flipped,
     }"
-    @click="selected = !selected"
+    @click="
+      onCardClick?.({
+        suit,
+        rank,
+        flipped,
+        id,
+      })
+    "
   >
     <div v-if="flipped" class="flex justify-between">
       <span>
@@ -27,16 +34,24 @@ const props = withDefaults(
     suit: Card["suit"];
     rank: Card["rank"];
     flipped: Card["flipped"];
+    id: Card["id"];
   }>(),
   {
     suit: "clubs",
     rank: 0,
     flipped: false,
+    id: "",
   }
 );
 
-// ToDo Emit slect event, track selected in Game component
 const selected = ref(false);
+
+const onCardClick = inject(onCardClickKey);
+const selectedCardId = inject(selectedCardIdKey, ref(null));
+
+watch(selectedCardId, (newValue) => {
+  selected.value = selectedCardId.value === props.id;
+});
 </script>
 
 <style lang="postcss" scoped>

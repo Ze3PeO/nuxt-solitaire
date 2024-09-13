@@ -25,5 +25,20 @@
 </template>
 
 <script setup lang="ts">
+import type { Card } from "@/assets/types/card";
+
 const { game } = useSolitaire();
+
+const selectedCardId = ref<Card["id"] | null>(null);
+
+provide(selectedCardIdKey, selectedCardId);
+
+provide(onCardClickKey, (card: Card) => {
+  selectedCardId.value = selectedCardId.value !== card.id ? card.id : null;
+
+  // set selected card
+  // maybe use id
+  // if another card is already selected try a move
+  // if card is on the stock dont select and just move to waste
+});
 </script>

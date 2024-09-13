@@ -5,4 +5,5 @@ export type Card = {
   suit: Suit;
   rank: number;
   flipped: boolean;
+  id: string;
 };
