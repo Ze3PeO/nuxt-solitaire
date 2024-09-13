@@ -27,14 +27,25 @@
 <script setup lang="ts">
 import type { Card } from "@/assets/types/card";
 
-const { game } = useSolitaire();
+const { game, moveCard } = useSolitaire();
 
 const selectedCardId = ref<Card["id"] | null>(null);
 
 provide(selectedCardIdKey, selectedCardId);
 
 provide(onCardClickKey, (card: Card) => {
-  selectedCardId.value = selectedCardId.value !== card.id ? card.id : null;
+  if (selectedCardId.value === card.id) {
+    selectedCardId.value = null;
+    return;
+  }
+
+  if (selectedCardId.value === null) {
+    selectedCardId.value = card.id;
+    return;
+  }
+
+  moveCard(selectedCardId.value, card.id);
+  selectedCardId.value = null;
 
   // set selected card
   // maybe use id
