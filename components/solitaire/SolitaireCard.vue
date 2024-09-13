@@ -14,6 +14,15 @@
         id,
       })
     "
+    @keydown.enter="
+      onCardClick?.({
+        suit,
+        rank,
+        flipped,
+        id,
+      })
+    "
+    :tabindex="flipped ? 0 : -1"
   >
     <div v-if="flipped" class="flex justify-between">
       <span>
@@ -49,9 +58,11 @@ const selected = ref(false);
 const onCardClick = inject(onCardClickKey);
 const selectedCardId = inject(selectedCardIdKey, ref(null));
 
-watch(selectedCardId, (newValue) => {
+watch(selectedCardId, () => {
   selected.value = selectedCardId.value === props.id;
 });
+
+// ToDo Custom focus styling
 </script>
 
 <style lang="postcss" scoped>
