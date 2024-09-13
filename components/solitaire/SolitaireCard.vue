@@ -35,7 +35,7 @@ const props = withDefaults(
   }
 );
 
-// ToDo Emit slect event, maybe use focus state for selected
+// ToDo Emit slect event, track selected in Game component
 const selected = ref(false);
 </script>
 

@@ -2,28 +2,67 @@ import type { Game } from "@/assets/types/game";
 
 export const useSolitaire = () => {
   const game: Ref<Game> = useState("game", () => ({
-    foundations: [],
+    foundations: [
+      {
+        cards: [],
+        suit: "clubs",
+      },
+      {
+        cards: [],
+        suit: "diamonds",
+      },
+      {
+        cards: [],
+        suit: "hearts",
+      },
+      {
+        cards: [],
+        suit: "spades",
+      },
+    ],
     stock: {
       cards: [
         {
           rank: 0,
           suit: "clubs",
-          flipped: true,
+          flipped: false,
         },
         {
           rank: 3,
           suit: "diamonds",
-          flipped: false,
+          flipped: true,
         },
       ],
     },
     waste: {
       cards: [],
     },
-    piles: [],
+    piles: [
+      {
+        cards: [],
+      },
+      {
+        cards: [],
+      },
+      {
+        cards: [],
+      },
+      {
+        cards: [],
+      },
+      {
+        cards: [],
+      },
+      {
+        cards: [],
+      },
+      {
+        cards: [],
+      },
+    ],
   }));
 
-  // ToDo Add types and state for foundations, piles, stacks etc.
+  // ToDo Add state for foundations, piles, stacks etc.
 
   return {
     game: readonly(game),
