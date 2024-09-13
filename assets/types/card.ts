@@ -1,4 +1,5 @@
-export type Suit = "clubs" | "diamonds" | "hearts" | "spades";
+export const Suits = ["clubs", "diamonds", "hearts", "spades"] as const;
+export type Suit = (typeof Suits)[number];
 
 export type Card = {
   suit: Suit;

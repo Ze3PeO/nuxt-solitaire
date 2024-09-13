@@ -13,5 +13,6 @@ import type { Suit } from "~/assets/types/card";
 const props = defineProps<{
   cards: DeepReadonly<Pile["cards"]>;
   suit?: Suit;
+  fanned: boolean;
 }>();
 </script>
