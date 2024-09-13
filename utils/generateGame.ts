@@ -16,20 +16,25 @@ export default function (): Game {
     });
   });
 
+  // Shuffle the deck
+  const shuffledDeck = shuffleArray(deck);
+
   // Create and fill the 7 card piles with cards going from 1 card to 7 cards
   Array.from({ length: 7 }, (value, index) => index + 1).forEach(
     (pileLength) => {
       piles.push({
-        cards: deck.splice(0, pileLength).map((card: Card, index: number) => {
-          card.flipped = index + 1 === pileLength;
-          return card;
-        }),
+        cards: shuffledDeck
+          .splice(0, pileLength)
+          .map((card: Card, index: number) => {
+            card.flipped = index + 1 === pileLength;
+            return card;
+          }),
       });
     }
   );
 
   // Reveal to top card of the soon to be stock pile
-  deck[deck.length - 1].flipped = true;
+  shuffledDeck[shuffledDeck.length - 1].flipped = true;
 
   return {
     foundations: [
@@ -51,7 +56,7 @@ export default function (): Game {
       },
     ],
     stock: {
-      cards: deck,
+      cards: shuffledDeck,
     },
     waste: {
       cards: [],
