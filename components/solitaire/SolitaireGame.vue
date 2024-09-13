@@ -15,7 +15,11 @@
       <SolitairePile :cards="game.stock.cards" />
     </div>
     <div class="col-span-7 grid grid-cols-7 gap-1">
-      <SolitairePile v-for="pile in game.piles" :cards="pile.cards" />
+      <SolitairePile
+        v-for="pile in game.piles"
+        :cards="pile.cards"
+        :fanned="true"
+      />
     </div>
   </div>
 </template>
