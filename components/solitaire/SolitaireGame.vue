@@ -4,19 +4,19 @@
   >
     <div class="col-span-4 grid grid-cols-4 gap-1">
       <SolitairePile
-        v-for="foundation in game.foundations"
+        v-for="foundation in foundations"
         :cards="foundation.cards"
         :suit="foundation.suit"
       />
     </div>
     <div></div>
     <div class="col-span-2 grid grid-cols-2 gap-1">
-      <SolitairePile :cards="game.waste.cards" />
-      <SolitairePile :cards="game.stock.cards" />
+      <SolitairePile :cards="waste?.cards ?? []" />
+      <SolitairePile :cards="stock?.cards ?? []" />
     </div>
     <div class="col-span-7 grid grid-cols-7 gap-1">
       <SolitairePile
-        v-for="pile in game.piles"
+        v-for="pile in tableauPiles"
         :cards="pile.cards"
         :fanned="true"
       />
@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import type { Card } from "@/assets/types/card";
 
-const { game, moveCard } = useSolitaire();
+const { moveCard, foundations, waste, stock, tableauPiles } = useSolitaire();
 
 const selectedCardId = ref<Card["id"] | null>(null);
 

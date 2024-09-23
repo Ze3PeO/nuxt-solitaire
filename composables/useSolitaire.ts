@@ -53,8 +53,22 @@ export const useSolitaire = () => {
     });
   };
 
+  const foundations = game.value.piles.filter(
+    (pile) => pile.pileType === "foundation"
+  );
+  const waste = game.value.piles.find((pile) => pile.pileType === "waste");
+
+  const stock = game.value.piles.find((pile) => pile.pileType === "stock");
+
+  const tableauPiles = game.value.piles.filter(
+    (pile) => pile.pileType === "tableauPile"
+  );
+
   return {
-    game: readonly(game),
+    foundations: readonly(foundations),
+    waste: waste ? readonly(waste) : null,
+    stock: stock ? readonly(stock) : null,
+    tableauPiles: readonly(tableauPiles),
     moveCard,
   };
 };

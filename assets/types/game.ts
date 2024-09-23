@@ -1,19 +1,19 @@
 import type { Card, Suit } from "@/assets/types/card";
 
-export type PileType = "pile" | "waste" | "stock" | "foundation";
+export type PileType = "tableauPile" | "waste" | "stock" | "foundation";
 
 export type Pile = {
   cards: Card[];
   pileType: PileType;
-};
-
-export type Foundation = Pile & {
-  suit: Suit;
+  suit?: Suit;
+  id: string;
 };
 
 export type Game = {
-  foundations: Foundation[];
-  stock: Pile;
-  waste: Pile;
   piles: Pile[];
+};
+
+export type CardSelection = {
+  cardId: string;
+  pileId: string;
 };
