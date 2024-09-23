@@ -4,35 +4,21 @@ import type { Card } from "@/assets/types/card";
 export const useSolitaire = () => {
   const game: Ref<Game> = useState("game", () => generateGame());
 
-  // ToDo game logic
-
   const clickStock = () => {
-    console.log("click");
-
     if (!stock || !waste) return;
 
-    if (stock.cards.length === 0) {
-      console.log("click1");
-      for (let i = 0; i < waste.cards.length; i++) {
-        const card = waste.cards.pop();
+    if (stock.cards.length > 0) {
+      const card = stock.cards.pop();
 
-        if (!card) continue;
+      if (!card) return;
 
-        card.flipped = false;
-        stock.cards.push(card);
-      }
-
+      card.flipped = true;
+      waste.cards.push(card);
+    } else {
+      waste.cards.forEach((card) => (card.flipped = false));
+      stock.cards = waste.cards.reverse();
       waste.cards = [];
-      return;
     }
-
-    console.log("click2");
-    const toMove = stock.cards.pop();
-
-    if (!toMove) return;
-
-    toMove.flipped = true;
-    waste.cards.push(toMove);
   };
 
   const moveCard = (
@@ -44,46 +30,110 @@ export const useSolitaire = () => {
 
     if (!pileSrc || !pileDest) return "failure";
 
-    // determine pile types and handle accordingly
-
     const cardSrc = pileSrc.cards.find((card: Card) => {
       return card.id === src.cardId;
     });
+
     const cardDest = pileDest.cards.find((card: Card) => {
       return card.id === dest.cardId;
     });
 
-    if (!cardSrc || !cardDest) return "failure";
-    if (cardSrc.rank !== cardDest.rank - 1) return "failure";
-    if (cardSrc.suit === "clubs" && cardDest.suit === "clubs") return "failure";
-    if (cardSrc.suit === "clubs" && cardDest.suit === "spades")
-      return "failure";
-    if (cardSrc.suit === "spades" && cardDest.suit === "clubs")
-      return "failure";
-    if (cardSrc.suit === "spades" && cardDest.suit === "spades")
-      return "failure";
-    if (cardSrc.suit === "hearts" && cardDest.suit === "hearts")
-      return "failure";
-    if (cardSrc.suit === "hearts" && cardDest.suit === "diamonds")
-      return "failure";
-    if (cardSrc.suit === "diamonds" && cardDest.suit === "diamonds")
-      return "failure";
-    if (cardSrc.suit === "diamonds" && cardDest.suit === "hearts")
-      return "failure";
+    if (!cardSrc) return "failure";
+
+    if (pileDest.type === "tableauPile") {
+      if (moveCardToTableauPile(cardSrc, pileSrc, pileDest, cardDest))
+        return "success";
+    }
+
+    if (pileDest.type === "foundation") {
+      if (moveCardToFoundation(cardSrc, pileSrc, pileDest, cardDest))
+        return "success";
+    }
+
+    return "failure";
+  };
+
+  const moveCardToTableauPile = (
+    cardSrc: Card,
+    pileSrc: Pile,
+    pileDest: Pile,
+    cardDest?: Card
+  ): boolean => {
+    if (!canBePlacedOnTableauPile(cardSrc, cardDest)) return false;
 
     const idx = pileSrc.cards.findIndex((card: Card) => {
-      return card.id === src.cardId;
+      return card.id === cardSrc.id;
     });
 
     const toMove = pileSrc.cards.splice(idx, pileSrc.cards.length - idx);
 
-    if (pileSrc.cards.length > 0) {
+    if (pileSrc.cards.length > 0 && pileSrc.type === "tableauPile") {
       pileSrc.cards[pileSrc.cards.length - 1].flipped = true;
     }
 
     pileDest.cards.push(...toMove);
 
-    return "success";
+    return true;
+  };
+
+  const moveCardToFoundation = (
+    cardSrc: Card,
+    pileSrc: Pile,
+    pileDest: Pile,
+    cardDest?: Card
+  ): boolean => {
+    if (!canBePlacedOnFoundation(cardSrc, pileDest, cardDest)) return false;
+
+    const idx = pileSrc.cards.findIndex((card: Card) => {
+      return card.id === cardSrc.id;
+    });
+
+    const toMove = pileSrc.cards.splice(idx, pileSrc.cards.length - idx);
+
+    if (toMove.length > 1) return false;
+
+    if (pileSrc.cards.length > 0 && pileSrc.type === "tableauPile") {
+      pileSrc.cards[pileSrc.cards.length - 1].flipped = true;
+    }
+
+    pileDest.cards.push(...toMove);
+
+    return true;
+  };
+
+  const canBePlacedOnFoundation = (
+    cardToMove: Card,
+    foundation: Pile,
+    topCard?: Card
+  ): boolean => {
+    if (cardToMove.suit !== foundation.suit) return false;
+    if (!topCard && cardToMove.rank === 0) return true;
+    if (!topCard) return false;
+    if (cardToMove.rank !== topCard.rank + 1) return false;
+    if (cardToMove.suit !== topCard.suit) return false;
+
+    return true;
+  };
+
+  const canBePlacedOnTableauPile = (
+    cardToMove: Card,
+    topCard?: Card
+  ): boolean => {
+    if (!topCard && cardToMove.rank === 12) return true;
+    if (!topCard) return false;
+    if (cardToMove.rank !== topCard.rank - 1) return false;
+    if (getCardColor(cardToMove) === getCardColor(topCard)) return false;
+
+    return true;
+  };
+
+  const getCardColor = (card: Card): "black" | "red" => {
+    if (card.suit === "hearts" || card.suit === "diamonds") {
+      return "red";
+    } else if (card.suit === "spades" || card.suit === "clubs") {
+      return "black";
+    }
+    return "black";
   };
 
   const foundations = game.value.piles.filter(
