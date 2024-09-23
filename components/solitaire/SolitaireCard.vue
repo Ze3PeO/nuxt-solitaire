@@ -50,7 +50,7 @@ watch(selectedCard, () => {
 
 <style lang="postcss" scoped>
 .card {
-  @apply select-none aspect-[5/7] text-black rounded p-1 bg-white border-2 border-slate-300 shadow-md;
+  @apply select-none aspect-[5/7] text-black rounded p-1 bg-white border-2 border-slate-300 shadow-md text-xl;
 }
 
 .card--covered {

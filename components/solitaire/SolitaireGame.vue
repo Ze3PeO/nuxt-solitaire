@@ -56,6 +56,8 @@ provide(onCardSelectKey, (selection: CardSelection) => {
 
   const result = moveCard(currentSelection.value, selection);
 
+  console.log(result);
+
   currentSelection.value = null;
 });
 </script>

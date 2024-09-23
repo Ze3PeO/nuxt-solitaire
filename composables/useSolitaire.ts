@@ -101,6 +101,18 @@ export const useSolitaire = () => {
     return true;
   };
 
+  const canBePlacedOnTableauPile = (
+    cardToMove: Card,
+    topCard?: Card
+  ): boolean => {
+    if (!topCard && cardToMove.rank === 12) return true;
+    if (!topCard) return false;
+    if (cardToMove.rank !== topCard.rank - 1) return false;
+    if (getCardColor(cardToMove) === getCardColor(topCard)) return false;
+
+    return true;
+  };
+
   const canBePlacedOnFoundation = (
     cardToMove: Card,
     foundation: Pile,
@@ -111,18 +123,6 @@ export const useSolitaire = () => {
     if (!topCard) return false;
     if (cardToMove.rank !== topCard.rank + 1) return false;
     if (cardToMove.suit !== topCard.suit) return false;
-
-    return true;
-  };
-
-  const canBePlacedOnTableauPile = (
-    cardToMove: Card,
-    topCard?: Card
-  ): boolean => {
-    if (!topCard && cardToMove.rank === 12) return true;
-    if (!topCard) return false;
-    if (cardToMove.rank !== topCard.rank - 1) return false;
-    if (getCardColor(cardToMove) === getCardColor(topCard)) return false;
 
     return true;
   };

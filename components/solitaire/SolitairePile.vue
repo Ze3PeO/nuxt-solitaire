@@ -28,7 +28,7 @@
       :class="{
         'cursor-pointer': type === 'stock',
       }"
-      :tabindex="type === 'stock' || type == 'foundation' ? 0 : -1"
+      :tabindex="type !== 'waste' ? 0 : -1"
     />
   </div>
 </template>
