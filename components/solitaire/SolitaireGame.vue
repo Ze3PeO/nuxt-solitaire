@@ -16,7 +16,7 @@
       <SolitairePile :cards="waste.cards" :id="waste.id" :type="waste.type" />
       <SolitairePile :cards="stock.cards" :id="stock.id" :type="stock.type" />
     </div>
-    <div class="col-span-7 grid grid-cols-7 gap-1">
+    <div class="col-span-7 grid grid-cols-7 gap-1 min-h-0">
       <SolitairePile
         v-for="pile in tableauPiles"
         :cards="pile.cards"

@@ -1,5 +1,10 @@
 <template>
-  <div class="flex flex-col gap-1">
+  <div
+    class="pile"
+    :class="{
+      'pile--fanned': fanned,
+    }"
+  >
     <SolitaireCard
       v-if="cards.length > 0 && !fanned"
       v-bind="cards[cards.length - 1]"
@@ -63,3 +68,13 @@ const onCardClick = (card: Card | null) => {
   onCardSelect?.({ cardId: card.id, pileId: props.id });
 };
 </script>
+
+<style lang="postcss" scoped>
+.pile {
+  @apply grid relative h-auto min-h-0;
+}
+
+.pile--fanned {
+  @apply grid grid-cols-1 auto-rows-[4%] sm:auto-rows-[5%];
+}
+</style>

@@ -50,7 +50,7 @@ watch(selectedCard, () => {
 
 <style lang="postcss" scoped>
 .card {
-  @apply select-none aspect-[5/7] text-black rounded p-1 bg-white border-2 border-slate-300 shadow-md text-xl;
+  @apply select-none aspect-[5/7] text-black rounded p-0.5 sm:p-1 bg-white border-2 border-slate-300 shadow-md text-xs sm:text-lg;
 }
 
 .card--covered {
@@ -66,6 +66,6 @@ watch(selectedCard, () => {
 }
 
 .card--flipped {
-  @apply cursor-pointer;
+  @apply cursor-pointer hover:ring-1 hover:ring-yellow-600;
 }
 </style>

@@ -4,7 +4,10 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 
 ## ToDo
 
-- [ ] Setup ESLint & TailwindCSS
+- [ ] Add undo/redo features [(See)](https://vueuse.org/core/useRefHistory/#userefhistory)
+- [ ] Add auto complete once all cards are flipped and on the tableau piles
+- [ ] Add timer/score system
+- [ ] Add more global stlying and dark mode
 
 ## Setup
 
