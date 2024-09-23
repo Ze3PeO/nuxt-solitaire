@@ -7,20 +7,30 @@
         v-for="foundation in foundations"
         :cards="foundation.cards"
         :suit="foundation.suit"
-        :pile-id="foundation.id"
+        :id="foundation.id"
+        :type="foundation.type"
       />
     </div>
     <div></div>
     <div class="col-span-2 grid grid-cols-2 gap-1">
-      <SolitairePile :cards="waste?.cards ?? []" :pile-id="waste?.id ?? ''" />
-      <SolitairePile :cards="stock?.cards ?? []" :pile-id="stock?.id ?? ''" />
+      <SolitairePile
+        :cards="waste?.cards ?? []"
+        :id="waste?.id ?? ''"
+        type="waste"
+      />
+      <SolitairePile
+        :cards="stock?.cards ?? []"
+        :id="stock?.id ?? ''"
+        type="stock"
+      />
     </div>
     <div class="col-span-7 grid grid-cols-7 gap-1">
       <SolitairePile
         v-for="pile in tableauPiles"
         :cards="pile.cards"
         :fanned="true"
-        :pile-id="pile.id"
+        :id="pile.id"
+        :type="pile.type"
       />
     </div>
   </div>
@@ -35,18 +45,18 @@ const currentSelection = ref<CardSelection | null>(null);
 
 provide(selectedCardKey, currentSelection);
 
-provide(onCardClickKey, (selection: CardSelection) => {
-  if (currentSelection.value?.cardId === selection.cardId) {
-    currentSelection.value = null;
-    return;
-  }
-
+provide(onCardSelectKey, (selection: CardSelection) => {
   if (currentSelection.value === null) {
     currentSelection.value = selection;
     return;
   }
 
-  moveCard(currentSelection.value.cardId, selection.cardId);
+  if (currentSelection.value.cardId === selection.cardId) {
+    currentSelection.value = null;
+    return;
+  }
+
+  moveCard(currentSelection.value, selection);
   currentSelection.value = null;
 
   console.log(selection.pileId);

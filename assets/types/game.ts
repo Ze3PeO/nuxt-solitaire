@@ -4,7 +4,7 @@ export type PileType = "tableauPile" | "waste" | "stock" | "foundation";
 
 export type Pile = {
   cards: Card[];
-  pileType: PileType;
+  type: PileType;
   suit?: Suit;
   id: string;
 };

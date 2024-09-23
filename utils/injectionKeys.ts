@@ -5,6 +5,6 @@ export const selectedCardKey = Symbol() as InjectionKey<
   Ref<CardSelection | null>
 >;
 
-export const onCardClickKey = Symbol() as InjectionKey<
+export const onCardSelectKey = Symbol() as InjectionKey<
   (selection: CardSelection) => void
 >;

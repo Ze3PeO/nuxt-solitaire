@@ -1,4 +1,4 @@
-import type { Game, Pile } from "@/assets/types/game";
+import type { CardSelection, Game, Pile } from "@/assets/types/game";
 import type { Card } from "@/assets/types/card";
 
 export const useSolitaire = () => {
@@ -8,14 +8,20 @@ export const useSolitaire = () => {
 
   console.log(game);
 
-  const moveCard = (cardIdSrc: Card["id"], cardIdDest: Card["id"]) => {
-    const pileSrc = findPileByCardId(cardIdSrc);
-    const pileDest = findPileByCardId(cardIdDest);
+  const moveCard = (src: CardSelection, dest: CardSelection) => {
+    const pileSrc = game.value.piles.find((pile) => pile.id === src.pileId);
+    const pileDest = game.value.piles.find((pile) => pile.id === dest.pileId);
 
     if (!pileSrc || !pileDest) return;
 
-    const cardSrc = findCardByCardId(cardIdSrc, pileSrc);
-    const cardDest = findCardByCardId(cardIdDest, pileDest);
+    // determine pile types and handle accordingly
+
+    const cardSrc = pileSrc.cards.find((card: Card) => {
+      return card.id === src.cardId;
+    });
+    const cardDest = pileDest.cards.find((card: Card) => {
+      return card.id === dest.cardId;
+    });
 
     if (!cardSrc || !cardDest) return;
     if (cardSrc.rank !== cardDest.rank - 1) return;
@@ -29,7 +35,7 @@ export const useSolitaire = () => {
     if (cardSrc.suit === "diamonds" && cardDest.suit === "hearts") return;
 
     const idx = pileSrc.cards.findIndex((card: Card) => {
-      return card.id === cardIdSrc;
+      return card.id === src.cardId;
     });
 
     const toMove = pileSrc.cards.splice(idx, pileSrc.cards.length - idx);
@@ -41,27 +47,15 @@ export const useSolitaire = () => {
     pileDest.cards.push(...toMove);
   };
 
-  const findCardByCardId = (cardId: Card["id"], pile: Pile) => {
-    return pile.cards.find((card: Card) => {
-      return card.id === cardId;
-    });
-  };
-
-  const findPileByCardId = (cardId: Card["id"]) => {
-    return game.value.piles.find((pile: Pile) => {
-      return pile.cards.some((card) => card.id === cardId);
-    });
-  };
-
   const foundations = game.value.piles.filter(
-    (pile) => pile.pileType === "foundation"
+    (pile) => pile.type === "foundation"
   );
-  const waste = game.value.piles.find((pile) => pile.pileType === "waste");
+  const waste = game.value.piles.find((pile) => pile.type === "waste");
 
-  const stock = game.value.piles.find((pile) => pile.pileType === "stock");
+  const stock = game.value.piles.find((pile) => pile.type === "stock");
 
   const tableauPiles = game.value.piles.filter(
-    (pile) => pile.pileType === "tableauPile"
+    (pile) => pile.type === "tableauPile"
   );
 
   return {

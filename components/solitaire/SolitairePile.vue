@@ -3,19 +3,17 @@
     <SolitaireCard
       v-if="cards.length > 0 && !fanned"
       v-bind="cards[cards.length - 1]"
-      :pile-id="pileId"
-      @click="onCardClick?.({ cardId: cards[cards.length - 1].id, pileId })"
-      @keydown.enter="
-        onCardClick?.({ cardId: cards[cards.length - 1].id, pileId })
-      "
+      :pile-id="id"
+      @click="onCardClick(cards[cards.length - 1])"
+      @keydown.enter="onCardClick(cards[cards.length - 1])"
     />
     <SolitaireCard
       v-else-if="cards.length > 0 && fanned"
       v-for="card in cards"
       v-bind="card"
-      :pile-id="pileId"
-      @click="onCardClick?.({ cardId: card.id, pileId })"
-      @keydown.enter="onCardClick?.({ cardId: card.id, pileId })"
+      :pile-id="id"
+      @click="onCardClick(card)"
+      @keydown.enter="onCardClick(card)"
     />
     <SolitaireBase v-else :suit="suit" />
   </div>
@@ -30,8 +28,20 @@ const props = defineProps<{
   cards: DeepReadonly<Card[]>;
   suit?: Suit;
   fanned?: boolean;
-  pileId: Pile["id"];
+  id: Pile["id"];
+  type: Pile["type"];
 }>();
 
-const onCardClick = inject(onCardClickKey);
+const onCardSelect = inject(onCardSelectKey);
+
+const onCardClick = (card: Card) => {
+  console.log("Hier", card);
+
+  if (props.type === "stock") {
+    //onStockClick();
+    return;
+  }
+
+  onCardSelect?.({ cardId: card.id, pileId: props.id });
+};
 </script>
