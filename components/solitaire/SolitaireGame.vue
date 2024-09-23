@@ -13,17 +13,8 @@
     </div>
     <div></div>
     <div class="col-span-2 grid grid-cols-2 gap-1">
-      <!-- ToDo fallback -->
-      <SolitairePile
-        :cards="waste?.cards ?? []"
-        :id="waste?.id ?? ''"
-        :type="waste?.type ?? 'waste'"
-      />
-      <SolitairePile
-        :cards="stock?.cards ?? []"
-        :id="stock?.id ?? ''"
-        :type="stock?.type ?? 'stock'"
-      />
+      <SolitairePile :cards="waste.cards" :id="waste.id" :type="waste.type" />
+      <SolitairePile :cards="stock.cards" :id="stock.id" :type="stock.type" />
     </div>
     <div class="col-span-7 grid grid-cols-7 gap-1">
       <SolitairePile
@@ -63,14 +54,8 @@ provide(onCardSelectKey, (selection: CardSelection) => {
     return;
   }
 
-  moveCard(currentSelection.value, selection);
+  const result = moveCard(currentSelection.value, selection);
+
   currentSelection.value = null;
-
-  console.log(selection.pileId);
-
-  // set selected card
-  // maybe use id
-  // if another card is already selected try a move
-  // if card is on the stock dont select and just move to waste
 });
 </script>

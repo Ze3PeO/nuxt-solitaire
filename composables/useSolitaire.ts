@@ -35,11 +35,14 @@ export const useSolitaire = () => {
     waste.cards.push(toMove);
   };
 
-  const moveCard = (src: CardSelection, dest: CardSelection) => {
+  const moveCard = (
+    src: CardSelection,
+    dest: CardSelection
+  ): "success" | "failure" => {
     const pileSrc = game.value.piles.find((pile) => pile.id === src.pileId);
     const pileDest = game.value.piles.find((pile) => pile.id === dest.pileId);
 
-    if (!pileSrc || !pileDest) return;
+    if (!pileSrc || !pileDest) return "failure";
 
     // determine pile types and handle accordingly
 
@@ -50,16 +53,23 @@ export const useSolitaire = () => {
       return card.id === dest.cardId;
     });
 
-    if (!cardSrc || !cardDest) return;
-    if (cardSrc.rank !== cardDest.rank - 1) return;
-    if (cardSrc.suit === "clubs" && cardDest.suit === "clubs") return;
-    if (cardSrc.suit === "clubs" && cardDest.suit === "spades") return;
-    if (cardSrc.suit === "spades" && cardDest.suit === "clubs") return;
-    if (cardSrc.suit === "spades" && cardDest.suit === "spades") return;
-    if (cardSrc.suit === "hearts" && cardDest.suit === "hearts") return;
-    if (cardSrc.suit === "hearts" && cardDest.suit === "diamonds") return;
-    if (cardSrc.suit === "diamonds" && cardDest.suit === "diamonds") return;
-    if (cardSrc.suit === "diamonds" && cardDest.suit === "hearts") return;
+    if (!cardSrc || !cardDest) return "failure";
+    if (cardSrc.rank !== cardDest.rank - 1) return "failure";
+    if (cardSrc.suit === "clubs" && cardDest.suit === "clubs") return "failure";
+    if (cardSrc.suit === "clubs" && cardDest.suit === "spades")
+      return "failure";
+    if (cardSrc.suit === "spades" && cardDest.suit === "clubs")
+      return "failure";
+    if (cardSrc.suit === "spades" && cardDest.suit === "spades")
+      return "failure";
+    if (cardSrc.suit === "hearts" && cardDest.suit === "hearts")
+      return "failure";
+    if (cardSrc.suit === "hearts" && cardDest.suit === "diamonds")
+      return "failure";
+    if (cardSrc.suit === "diamonds" && cardDest.suit === "diamonds")
+      return "failure";
+    if (cardSrc.suit === "diamonds" && cardDest.suit === "hearts")
+      return "failure";
 
     const idx = pileSrc.cards.findIndex((card: Card) => {
       return card.id === src.cardId;
@@ -72,6 +82,8 @@ export const useSolitaire = () => {
     }
 
     pileDest.cards.push(...toMove);
+
+    return "success";
   };
 
   const foundations = game.value.piles.filter(
@@ -88,8 +100,8 @@ export const useSolitaire = () => {
 
   return {
     foundations: readonly(foundations),
-    waste: waste ? readonly(waste) : null,
-    stock: stock ? readonly(stock) : null,
+    waste: readonly(waste!),
+    stock: readonly(stock!),
     tableauPiles: readonly(tableauPiles),
     moveCard,
     clickStock,

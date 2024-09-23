@@ -2,11 +2,11 @@
   <div
     class="card"
     :class="{
-      'card--cover': !flipped,
+      'card--covered': !flipped,
       'card--red': suit === 'diamonds' || suit === 'hearts',
       'card--selected': selected && flipped,
+      'card--flipped': flipped,
     }"
-    :tabindex="flipped ? 0 : -1"
   >
     <div v-if="flipped" class="flex justify-between">
       <span>
@@ -53,7 +53,7 @@ watch(selectedCard, () => {
   @apply select-none aspect-[5/7] text-black rounded p-1 bg-white border-2 border-slate-300 shadow-md;
 }
 
-.card--cover {
+.card--covered {
   @apply bg-blue-600 border-blue-700;
 }
 
@@ -63,5 +63,9 @@ watch(selectedCard, () => {
 
 .card--selected {
   @apply ring-2 ring-yellow-600;
+}
+
+.card--flipped {
+  @apply cursor-pointer;
 }
 </style>

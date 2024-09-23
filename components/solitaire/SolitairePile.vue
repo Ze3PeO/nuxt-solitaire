@@ -6,6 +6,10 @@
       :pile-id="id"
       @click="onCardClick(cards[cards.length - 1])"
       @keydown.enter="onCardClick(cards[cards.length - 1])"
+      :class="{
+        'cursor-pointer': type === 'stock',
+      }"
+      :tabindex="cards[cards.length - 1].flipped || type === 'stock' ? 0 : -1"
     />
     <SolitaireCard
       v-else-if="cards.length > 0 && fanned"
@@ -14,12 +18,17 @@
       :pile-id="id"
       @click="onCardClick(card)"
       @keydown.enter="onCardClick(card)"
+      :tabindex="card.flipped ? 0 : -1"
     />
     <SolitaireBase
       v-else
       :suit="suit"
       @click="onCardClick(null)"
       @keydown.enter="onCardClick(null)"
+      :class="{
+        'cursor-pointer': type === 'stock',
+      }"
+      :tabindex="type === 'stock' || type == 'foundation' ? 0 : -1"
     />
   </div>
 </template>
@@ -46,7 +55,10 @@ const onCardClick = (card: Card | null) => {
     return;
   }
 
-  if (!card) return;
+  if (!card) {
+    onCardSelect?.({ pileId: props.id });
+    return;
+  }
 
   onCardSelect?.({ cardId: card.id, pileId: props.id });
 };

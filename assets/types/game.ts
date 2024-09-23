@@ -14,6 +14,6 @@ export type Game = {
 };
 
 export type CardSelection = {
-  cardId: string;
+  cardId?: string;
   pileId: string;
 };
