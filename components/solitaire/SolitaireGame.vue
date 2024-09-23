@@ -7,45 +7,49 @@
         v-for="foundation in foundations"
         :cards="foundation.cards"
         :suit="foundation.suit"
+        :pile-id="foundation.id"
       />
     </div>
     <div></div>
     <div class="col-span-2 grid grid-cols-2 gap-1">
-      <SolitairePile :cards="waste?.cards ?? []" />
-      <SolitairePile :cards="stock?.cards ?? []" />
+      <SolitairePile :cards="waste?.cards ?? []" :pile-id="waste?.id ?? ''" />
+      <SolitairePile :cards="stock?.cards ?? []" :pile-id="stock?.id ?? ''" />
     </div>
     <div class="col-span-7 grid grid-cols-7 gap-1">
       <SolitairePile
         v-for="pile in tableauPiles"
         :cards="pile.cards"
         :fanned="true"
+        :pile-id="pile.id"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Card } from "@/assets/types/card";
+import type { CardSelection } from "@/assets/types/game";
 
 const { moveCard, foundations, waste, stock, tableauPiles } = useSolitaire();
 
-const selectedCardId = ref<Card["id"] | null>(null);
+const currentSelection = ref<CardSelection | null>(null);
 
-provide(selectedCardIdKey, selectedCardId);
+provide(selectedCardKey, currentSelection);
 
-provide(onCardClickKey, (card: Card) => {
-  if (selectedCardId.value === card.id) {
-    selectedCardId.value = null;
+provide(onCardClickKey, (selection: CardSelection) => {
+  if (currentSelection.value?.cardId === selection.cardId) {
+    currentSelection.value = null;
     return;
   }
 
-  if (selectedCardId.value === null) {
-    selectedCardId.value = card.id;
+  if (currentSelection.value === null) {
+    currentSelection.value = selection;
     return;
   }
 
-  moveCard(selectedCardId.value, card.id);
-  selectedCardId.value = null;
+  moveCard(currentSelection.value.cardId, selection.cardId);
+  currentSelection.value = null;
+
+  console.log(selection.pileId);
 
   // set selected card
   // maybe use id

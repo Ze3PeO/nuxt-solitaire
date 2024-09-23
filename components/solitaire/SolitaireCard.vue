@@ -6,22 +6,6 @@
       'card--red': suit === 'diamonds' || suit === 'hearts',
       'card--selected': selected && flipped,
     }"
-    @click="
-      onCardClick?.({
-        suit,
-        rank,
-        flipped,
-        id,
-      })
-    "
-    @keydown.enter="
-      onCardClick?.({
-        suit,
-        rank,
-        flipped,
-        id,
-      })
-    "
     :tabindex="flipped ? 0 : -1"
   >
     <div v-if="flipped" class="flex justify-between">
@@ -36,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Card } from "@/assets/types/card";
+import type { Card } from "@/assets/types/card";
 
 const props = withDefaults(
   defineProps<{
@@ -55,11 +39,10 @@ const props = withDefaults(
 
 const selected = ref(false);
 
-const onCardClick = inject(onCardClickKey);
-const selectedCardId = inject(selectedCardIdKey, ref(null));
+const selectedCard = inject(selectedCardKey, ref(null));
 
-watch(selectedCardId, () => {
-  selected.value = selectedCardId.value === props.id;
+watch(selectedCard, () => {
+  selected.value = selectedCard.value?.cardId === props.id;
 });
 
 // ToDo Custom focus styling

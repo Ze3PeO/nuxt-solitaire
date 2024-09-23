@@ -1,8 +1,10 @@
 import type { InjectionKey } from "vue";
-import type { Card } from "@/assets/types/card";
+import type { CardSelection } from "@/assets/types/game";
 
-export const selectedCardIdKey = Symbol() as InjectionKey<
-  Ref<Card["id"] | null>
+export const selectedCardKey = Symbol() as InjectionKey<
+  Ref<CardSelection | null>
 >;
 
-export const onCardClickKey = Symbol() as InjectionKey<(card: Card) => void>;
+export const onCardClickKey = Symbol() as InjectionKey<
+  (selection: CardSelection) => void
+>;
