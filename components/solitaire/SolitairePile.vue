@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col gap-1">
     <SolitaireCard
       v-if="cards.length > 0 && !fanned"
       v-bind="cards[cards.length - 1]"
@@ -15,7 +15,12 @@
       @click="onCardClick(card)"
       @keydown.enter="onCardClick(card)"
     />
-    <SolitaireBase v-else :suit="suit" />
+    <SolitaireBase
+      v-else
+      :suit="suit"
+      @click="onCardClick(null)"
+      @keydown.enter="onCardClick(null)"
+    />
   </div>
 </template>
 
@@ -33,14 +38,15 @@ const props = defineProps<{
 }>();
 
 const onCardSelect = inject(onCardSelectKey);
+const onStockClick = inject(onStockClickKey);
 
-const onCardClick = (card: Card) => {
-  console.log("Hier", card);
-
+const onCardClick = (card: Card | null) => {
   if (props.type === "stock") {
-    //onStockClick();
+    onStockClick?.();
     return;
   }
+
+  if (!card) return;
 
   onCardSelect?.({ cardId: card.id, pileId: props.id });
 };

@@ -13,15 +13,16 @@
     </div>
     <div></div>
     <div class="col-span-2 grid grid-cols-2 gap-1">
+      <!-- ToDo fallback -->
       <SolitairePile
         :cards="waste?.cards ?? []"
         :id="waste?.id ?? ''"
-        type="waste"
+        :type="waste?.type ?? 'waste'"
       />
       <SolitairePile
         :cards="stock?.cards ?? []"
         :id="stock?.id ?? ''"
-        type="stock"
+        :type="stock?.type ?? 'stock'"
       />
     </div>
     <div class="col-span-7 grid grid-cols-7 gap-1">
@@ -39,11 +40,17 @@
 <script setup lang="ts">
 import type { CardSelection } from "@/assets/types/game";
 
-const { moveCard, foundations, waste, stock, tableauPiles } = useSolitaire();
+const { moveCard, clickStock, foundations, waste, stock, tableauPiles } =
+  useSolitaire();
 
 const currentSelection = ref<CardSelection | null>(null);
 
 provide(selectedCardKey, currentSelection);
+
+provide(onStockClickKey, () => {
+  currentSelection.value = null;
+  clickStock();
+});
 
 provide(onCardSelectKey, (selection: CardSelection) => {
   if (currentSelection.value === null) {

@@ -8,3 +8,5 @@ export const selectedCardKey = Symbol() as InjectionKey<
 export const onCardSelectKey = Symbol() as InjectionKey<
   (selection: CardSelection) => void
 >;
+
+export const onStockClickKey = Symbol() as InjectionKey<() => void>;

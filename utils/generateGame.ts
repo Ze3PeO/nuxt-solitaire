@@ -30,49 +30,46 @@ export default function (): Game {
             card.flipped = index + 1 === pileLength;
             return card;
           }),
-        pileType: "tableauPile",
+        type: "tableauPile",
         id: useId(),
       });
     }
   );
-
-  // Reveal to top card of the soon to be stock pile
-  shuffledDeck[shuffledDeck.length - 1].flipped = true;
 
   return {
     piles: [
       {
         cards: [],
         suit: "clubs",
-        pileType: "foundation",
+        type: "foundation",
         id: useId(),
       },
       {
         cards: [],
         suit: "diamonds",
-        pileType: "foundation",
+        type: "foundation",
         id: useId(),
       },
       {
         cards: [],
         suit: "hearts",
-        pileType: "foundation",
+        type: "foundation",
         id: useId(),
       },
       {
         cards: [],
         suit: "spades",
-        pileType: "foundation",
+        type: "foundation",
         id: useId(),
       },
       {
         cards: shuffledDeck,
-        pileType: "stock",
+        type: "stock",
         id: useId(),
       },
       {
         cards: [],
-        pileType: "waste",
+        type: "waste",
         id: useId(),
       },
       ...tableauPiles,

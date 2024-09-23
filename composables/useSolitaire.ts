@@ -6,7 +6,34 @@ export const useSolitaire = () => {
 
   // ToDo game logic
 
-  console.log(game);
+  const clickStock = () => {
+    console.log("click");
+
+    if (!stock || !waste) return;
+
+    if (stock.cards.length === 0) {
+      console.log("click1");
+      for (let i = 0; i < waste.cards.length; i++) {
+        const card = waste.cards.pop();
+
+        if (!card) continue;
+
+        card.flipped = false;
+        stock.cards.push(card);
+      }
+
+      waste.cards = [];
+      return;
+    }
+
+    console.log("click2");
+    const toMove = stock.cards.pop();
+
+    if (!toMove) return;
+
+    toMove.flipped = true;
+    waste.cards.push(toMove);
+  };
 
   const moveCard = (src: CardSelection, dest: CardSelection) => {
     const pileSrc = game.value.piles.find((pile) => pile.id === src.pileId);
@@ -50,6 +77,7 @@ export const useSolitaire = () => {
   const foundations = game.value.piles.filter(
     (pile) => pile.type === "foundation"
   );
+
   const waste = game.value.piles.find((pile) => pile.type === "waste");
 
   const stock = game.value.piles.find((pile) => pile.type === "stock");
@@ -64,5 +92,6 @@ export const useSolitaire = () => {
     stock: stock ? readonly(stock) : null,
     tableauPiles: readonly(tableauPiles),
     moveCard,
+    clickStock,
   };
 };
