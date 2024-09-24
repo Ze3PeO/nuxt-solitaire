@@ -186,6 +186,7 @@ export const useSolitaire = () => {
       stats.value.push({
         time: timestamp.value,
         score: score.value,
+        date: Date.now(),
       });
 
       useTimeoutFn(() => {

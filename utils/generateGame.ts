@@ -36,6 +36,29 @@ export default function (): Game {
     }
   );
 
+  const foundationPiles: Pile[] = [];
+
+  Suits.forEach((suit: Suit) => {
+    const cards: Card[] = [];
+
+    Array.from({ length: 12 }, (value, index) => index).forEach((rank) => {
+      cards.push({
+        suit,
+        rank,
+        flipped: true,
+        id: useId(),
+      });
+    });
+
+    foundationPiles.push({
+      cards,
+      suit,
+      type: "foundation",
+      id: useId(),
+    });
+  });
+
+  /*
   return {
     piles: [
       {
@@ -73,6 +96,85 @@ export default function (): Game {
         id: useId(),
       },
       ...tableauPiles,
+    ],
+  };*/
+
+  return {
+    piles: [
+      ...foundationPiles,
+      {
+        cards: [],
+        type: "stock",
+        id: useId(),
+      },
+      {
+        cards: [],
+        type: "waste",
+        id: useId(),
+      },
+      {
+        cards: [],
+        type: "tableauPile",
+        id: useId(),
+      },
+      {
+        cards: [],
+        type: "tableauPile",
+        id: useId(),
+      },
+      {
+        cards: [],
+        type: "tableauPile",
+        id: useId(),
+      },
+      {
+        cards: [
+          {
+            suit: "clubs",
+            rank: 12,
+            flipped: true,
+            id: useId(),
+          },
+        ],
+        type: "tableauPile",
+        id: useId(),
+      },
+      {
+        cards: [
+          {
+            suit: "diamonds",
+            rank: 12,
+            flipped: true,
+            id: useId(),
+          },
+        ],
+        type: "tableauPile",
+        id: useId(),
+      },
+      {
+        cards: [
+          {
+            suit: "hearts",
+            rank: 12,
+            flipped: true,
+            id: useId(),
+          },
+        ],
+        type: "tableauPile",
+        id: useId(),
+      },
+      {
+        cards: [
+          {
+            suit: "spades",
+            rank: 12,
+            flipped: true,
+            id: useId(),
+          },
+        ],
+        type: "tableauPile",
+        id: useId(),
+      },
     ],
   };
 }

@@ -9,7 +9,7 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 - [ ] Add auto complete once all cards are flipped and on the tableau piles
 - [ ] Detect unwinnable game
 - [x] Add timer/score system
-- [ ] Save scores in table
+- [x] Save scores in table
 - [ ] Add more global stlying and dark mode
 - [ ] Add about page with rules for example
 
