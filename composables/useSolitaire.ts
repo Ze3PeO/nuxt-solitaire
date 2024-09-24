@@ -3,6 +3,16 @@ import type { Card } from "@/assets/types/card";
 
 export const useSolitaire = () => {
   const game: Ref<Game> = useState("game", () => generateGame());
+  // ToDo 2 points are deducted every 10 seconds
+  // ---
+  // ToDo Moving cards directly from the Waste stack to a Foundation scores 10 points.
+  // However, if the card is first moved to a Tableau, and then to a Foundation,
+  // an extra 5 points are scored making a total of 15.
+  // Thus, to score the most points, no cards should be moved directly from the Waste to Foundation.
+  // ---
+  // ToDo Bonus points are scored using the formula 700,000 ÷ (seconds to finish), if the game takes at least 30 seconds.
+  // If the game takes under 30 seconds, no bonus points are awarded.
+  const score = ref<number>(0);
 
   const clickStock = () => {
     if (!stock || !waste) return;
@@ -41,13 +51,21 @@ export const useSolitaire = () => {
     if (!cardSrc) return "failure";
 
     if (pileDest.type === "tableauPile") {
-      if (moveCardToTableauPile(cardSrc, pileSrc, pileDest, cardDest))
+      if (moveCardToTableauPile(cardSrc, pileSrc, pileDest, cardDest)) {
+        if (pileSrc.type === "waste") score.value += 5;
+        if (pileSrc.type === "foundation") score.value -= 15;
+
         return "success";
+      }
     }
 
     if (pileDest.type === "foundation") {
-      if (moveCardToFoundation(cardSrc, pileSrc, pileDest, cardDest))
+      if (moveCardToFoundation(cardSrc, pileSrc, pileDest, cardDest)) {
+        if (pileSrc.type === "waste") score.value += 10;
+        if (pileSrc.type === "tableauPile") score.value += 10;
+
         return "success";
+      }
     }
 
     return "failure";
@@ -69,6 +87,7 @@ export const useSolitaire = () => {
 
     if (pileSrc.cards.length > 0 && pileSrc.type === "tableauPile") {
       pileSrc.cards[pileSrc.cards.length - 1].flipped = true;
+      score.value += 5;
     }
 
     pileDest.cards.push(...toMove);
@@ -94,6 +113,7 @@ export const useSolitaire = () => {
 
     if (pileSrc.cards.length > 0 && pileSrc.type === "tableauPile") {
       pileSrc.cards[pileSrc.cards.length - 1].flipped = true;
+      score.value += 5;
     }
 
     pileDest.cards.push(...toMove);
@@ -155,5 +175,6 @@ export const useSolitaire = () => {
     tableauPiles: readonly(tableauPiles),
     moveCard,
     clickStock,
+    score: readonly(score),
   };
 };

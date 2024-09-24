@@ -2,7 +2,7 @@
   <div class="mx-auto max-w-md h-full grid grid-rows-[auto,1fr,auto]">
     <div class="flex gap-2 justify-between">
       <div>Timer: 00:00</div>
-      <div>Score: 5000</div>
+      <div>Score: {{ score }}</div>
     </div>
     <div
       class="bg-green-800 p-1 gap-x-1 gap-y-2 grid grid-rows-[auto,1fr] grid-cols-7 overflow-hidden"
@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import type { CardSelection } from "@/assets/types/game";
 
-const { moveCard, clickStock, foundations, waste, stock, tableauPiles } =
+const { moveCard, clickStock, foundations, waste, stock, tableauPiles, score } =
   useSolitaire();
 
 const currentSelection = ref<CardSelection | null>(null);
