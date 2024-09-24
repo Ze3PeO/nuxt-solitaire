@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto max-w-md h-full grid grid-rows-[auto,1fr,auto]">
     <div class="flex gap-2 justify-between">
-      <div>Timer: 00:00</div>
+      <div>Timer: {{ formatTime(timestamp) }}</div>
       <div>Score: {{ score }}</div>
     </div>
     <div
@@ -41,8 +41,16 @@
 <script setup lang="ts">
 import type { CardSelection } from "@/assets/types/game";
 
-const { moveCard, clickStock, foundations, waste, stock, tableauPiles, score } =
-  useSolitaire();
+const {
+  moveCard,
+  clickStock,
+  foundations,
+  waste,
+  stock,
+  tableauPiles,
+  score,
+  timestamp,
+} = useSolitaire();
 
 const currentSelection = ref<CardSelection | null>(null);
 

@@ -15,6 +15,7 @@
         'cursor-pointer': type === 'stock',
       }"
       :tabindex="cards[cards.length - 1].flipped || type === 'stock' ? 0 : -1"
+      :covered="false"
     />
     <SolitaireCard
       v-else-if="cards.length > 0 && fanned"

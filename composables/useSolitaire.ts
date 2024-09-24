@@ -3,8 +3,6 @@ import type { Card } from "@/assets/types/card";
 
 export const useSolitaire = () => {
   const game: Ref<Game> = useState("game", () => generateGame());
-  // ToDo 2 points are deducted every 10 seconds
-  // ---
   // ToDo Moving cards directly from the Waste stack to a Foundation scores 10 points.
   // However, if the card is first moved to a Tableau, and then to a Foundation,
   // an extra 5 points are scored making a total of 15.
@@ -13,6 +11,23 @@ export const useSolitaire = () => {
   // ToDo Bonus points are scored using the formula 700,000 ÷ (seconds to finish), if the game takes at least 30 seconds.
   // If the game takes under 30 seconds, no bonus points are awarded.
   const score = ref<number>(0);
+
+  const start = Date.now();
+
+  // Track two timestamps one for the timer and one for the score
+  const { timestamp } = useTimestamp({
+    offset: -start,
+    controls: true,
+    interval: 1000,
+  });
+
+  useTimestamp({
+    offset: -start,
+    interval: 10000,
+    callback: () => {
+      score.value -= 2;
+    },
+  });
 
   const clickStock = () => {
     if (!stock || !waste) return;
@@ -176,5 +191,6 @@ export const useSolitaire = () => {
     moveCard,
     clickStock,
     score: readonly(score),
+    timestamp: readonly(timestamp),
   };
 };
