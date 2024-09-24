@@ -7,23 +7,21 @@ export const useSolitaire = () => {
   // However, if the card is first moved to a Tableau, and then to a Foundation,
   // an extra 5 points are scored making a total of 15.
   // Thus, to score the most points, no cards should be moved directly from the Waste to Foundation.
-  // ---
-  // ToDo Bonus points are scored using the formula 700,000 ÷ (seconds to finish), if the game takes at least 30 seconds.
-  // If the game takes under 30 seconds, no bonus points are awarded.
   const score = ref<number>(0);
 
   const start = Date.now();
 
   // Track two timestamps one for the timer and one for the score
-  const { timestamp } = useTimestamp({
+  const { timestamp, pause: pauseTimer } = useTimestamp({
     offset: -start,
     controls: true,
     interval: 1000,
   });
 
-  useTimestamp({
+  const { pause: pauseScore } = useTimestamp({
     offset: -start,
     interval: 10000,
+    controls: true,
     callback: () => {
       score.value -= 2;
     },
@@ -133,6 +131,8 @@ export const useSolitaire = () => {
 
     pileDest.cards.push(...toMove);
 
+    checkForWin();
+
     return true;
   };
 
@@ -160,6 +160,29 @@ export const useSolitaire = () => {
     if (cardToMove.suit !== topCard.suit) return false;
 
     return true;
+  };
+
+  const checkForWin = () => {
+    let win = true;
+
+    game.value.piles.forEach((pile) => {
+      if (pile.type === "foundation" && pile.cards.length !== 13) win = false;
+      if (pile.type !== "foundation" && pile.cards.length > 0) win = false;
+    });
+
+    if (win) {
+      pauseScore();
+      pauseTimer();
+
+      // Add Bonus points
+      if (timestamp.value > 30000) {
+        score.value += Math.round(700000 / (timestamp.value / 1000));
+      }
+
+      useTimeoutFn(() => {
+        alert("You have won");
+      }, 1000);
+    }
   };
 
   const getCardColor = (card: Card): "black" | "red" => {
