@@ -53,7 +53,7 @@ watch(selectedCard, () => {
 
 <style lang="postcss" scoped>
 .card {
-  @apply select-none transition-[margin] aspect-[5/7] text-black rounded p-0.5 sm:p-1 bg-white border-2 border-slate-300 shadow-md text-xs sm:text-lg;
+  @apply focus:ring-4 focus:ring-red-600 focus:outline-none ring-yellow-600 select-none transition-[margin] aspect-[5/7] text-black rounded p-0.5 sm:p-1 bg-white border-2 border-slate-300 shadow-md text-lg;
 }
 
 .card--facedown {
@@ -65,11 +65,11 @@ watch(selectedCard, () => {
 }
 
 .card--selected {
-  @apply ring-2 ring-yellow-600;
+  @apply ring-4;
 }
 
 .card--upturned {
-  @apply cursor-pointer hover:ring-1 hover:ring-yellow-600;
+  @apply cursor-pointer hover:ring-2;
 }
 
 .card--covered {

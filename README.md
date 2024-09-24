@@ -5,9 +5,13 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 ## ToDo
 
 - [ ] Add undo/redo features [(See)](https://vueuse.org/core/useRefHistory/#userefhistory)
+- [ ] Add game reset
 - [ ] Add auto complete once all cards are flipped and on the tableau piles
-- [ ] Add timer/score system
+- [ ] Detect unwinnable game
+- [x] Add timer/score system
+- [ ] Save scores in table
 - [ ] Add more global stlying and dark mode
+- [ ] Add about page with rules for example
 
 ## Setup
 

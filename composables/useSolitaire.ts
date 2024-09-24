@@ -1,5 +1,7 @@
 import type { CardSelection, Game, Pile } from "@/assets/types/game";
 import type { Card } from "@/assets/types/card";
+import type { Stat } from "@/assets/types/stats";
+import { useStorage } from "@vueuse/core";
 
 export const useSolitaire = () => {
   const game: Ref<Game> = useState("game", () => generateGame());
@@ -8,8 +10,8 @@ export const useSolitaire = () => {
   // an extra 5 points are scored making a total of 15.
   // Thus, to score the most points, no cards should be moved directly from the Waste to Foundation.
   const score = ref<number>(0);
-
   const start = Date.now();
+  const stats: Ref<Stat[]> = useStorage("stats", []);
 
   // Track two timestamps one for the timer and one for the score
   const { timestamp, pause: pauseTimer } = useTimestamp({
@@ -180,6 +182,11 @@ export const useSolitaire = () => {
       if (timestamp.value > 30000) {
         score.value += Math.round(700000 / (timestamp.value / 1000));
       }
+
+      stats.value.push({
+        time: timestamp.value,
+        score: score.value,
+      });
 
       useTimeoutFn(() => {
         alert("You have won");
