@@ -18,12 +18,13 @@
     />
     <SolitaireCard
       v-else-if="cards.length > 0 && fanned"
-      v-for="card in cards"
+      v-for="(card, index) in cards"
       v-bind="card"
       :pile-id="id"
       @click="onCardClick(card)"
       @keydown.enter="onCardClick(card)"
       :tabindex="card.flipped ? 0 : -1"
+      :covered="index < cards.length - 1"
     />
     <SolitaireBase
       v-else

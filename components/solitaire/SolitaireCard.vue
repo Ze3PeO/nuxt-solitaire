@@ -2,10 +2,11 @@
   <div
     class="card"
     :class="{
-      'card--covered': !flipped,
+      'card--facedown': !flipped,
       'card--red': suit === 'diamonds' || suit === 'hearts',
       'card--selected': selected && flipped,
-      'card--flipped': flipped,
+      'card--upturned': flipped,
+      'card--covered': covered && flipped,
     }"
   >
     <div v-if="flipped" class="flex justify-between">
@@ -28,12 +29,14 @@ const props = withDefaults(
     rank: Card["rank"];
     flipped: Card["flipped"];
     id: Card["id"];
+    covered: boolean;
   }>(),
   {
     suit: "clubs",
     rank: 0,
     flipped: false,
     id: "",
+    covered: false,
   }
 );
 
@@ -50,10 +53,10 @@ watch(selectedCard, () => {
 
 <style lang="postcss" scoped>
 .card {
-  @apply select-none aspect-[5/7] text-black rounded p-0.5 sm:p-1 bg-white border-2 border-slate-300 shadow-md text-xs sm:text-lg;
+  @apply select-none transition-[margin] aspect-[5/7] text-black rounded p-0.5 sm:p-1 bg-white border-2 border-slate-300 shadow-md text-xs sm:text-lg;
 }
 
-.card--covered {
+.card--facedown {
   @apply bg-blue-600 border-blue-700;
 }
 
@@ -65,7 +68,11 @@ watch(selectedCard, () => {
   @apply ring-2 ring-yellow-600;
 }
 
-.card--flipped {
+.card--upturned {
   @apply cursor-pointer hover:ring-1 hover:ring-yellow-600;
+}
+
+.card--covered {
+  @apply hover:-mt-4;
 }
 </style>
