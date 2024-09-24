@@ -23,7 +23,7 @@ export const useSolitaire = () => {
     interval: 10000,
     controls: true,
     callback: () => {
-      score.value -= 2;
+      score.value = Math.max(score.value - 2, 0);
     },
   });
 
@@ -41,6 +41,7 @@ export const useSolitaire = () => {
       waste.cards.forEach((card) => (card.flipped = false));
       stock.cards = waste.cards.reverse();
       waste.cards = [];
+      score.value = Math.max(score.value - 100, 0);
     }
   };
 
@@ -66,7 +67,8 @@ export const useSolitaire = () => {
     if (pileDest.type === "tableauPile") {
       if (moveCardToTableauPile(cardSrc, pileSrc, pileDest, cardDest)) {
         if (pileSrc.type === "waste") score.value += 5;
-        if (pileSrc.type === "foundation") score.value -= 15;
+        if (pileSrc.type === "foundation")
+          score.value = Math.max(score.value - 15, 0);
 
         return "success";
       }

@@ -77,6 +77,6 @@ const onCardClick = (card: Card | null) => {
 }
 
 .pile--fanned {
-  @apply grid grid-cols-1 auto-rows-[4%] sm:auto-rows-[5%];
+  @apply grid grid-cols-1 auto-rows-[5%];
 }
 </style>

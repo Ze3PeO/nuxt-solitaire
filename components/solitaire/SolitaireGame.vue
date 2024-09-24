@@ -1,6 +1,8 @@
 <template>
-  <div class="mx-auto max-w-md h-full grid grid-rows-[auto,1fr,auto]">
-    <div class="flex gap-2 justify-between">
+  <div
+    class="mx-auto max-w-screen-sm h-full grid grid-rows-[auto,1fr,auto] gap-2 py-2"
+  >
+    <div class="flex gap-2 justify-between max-sm:px-2">
       <div>Timer: {{ formatTime(timestamp) }}</div>
       <div>Score: {{ score }}</div>
     </div>
@@ -31,9 +33,9 @@
         />
       </div>
     </div>
-    <div class="flex gap-2 justify-end">
-      <button>Undo</button>
-      <button>Redo</button>
+    <div class="flex gap-2 justify-end max-sm:px-2">
+      <button class="cursor-not-allowed">Undo</button>
+      <button class="cursor-not-allowed">Redo</button>
     </div>
   </div>
 </template>
