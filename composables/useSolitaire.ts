@@ -204,6 +204,11 @@ export const useSolitaire = () => {
     return "black";
   };
 
+  const reset = () => {
+    game.value = generateGame();
+    score.value = 0;
+  };
+
   const foundations = game.value.piles.filter(
     (pile) => pile.type === "foundation"
   );
@@ -217,12 +222,13 @@ export const useSolitaire = () => {
   );
 
   return {
-    foundations: readonly(foundations),
-    waste: readonly(waste!),
-    stock: readonly(stock!),
-    tableauPiles: readonly(tableauPiles),
+    foundations: foundations,
+    waste: waste!,
+    stock: stock!,
+    tableauPiles: tableauPiles,
     moveCard,
     clickStock,
+    reset,
     score: readonly(score),
     timestamp: readonly(timestamp),
   };

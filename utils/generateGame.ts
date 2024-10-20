@@ -1,5 +1,6 @@
 import { Suits, type Card, type Suit } from "@/assets/types/card";
 import type { Game, Pile } from "~/assets/types/game";
+import { v4 as uuidv4 } from "uuid";
 
 export default function (): Game {
   const deck: Card[] = [];
@@ -12,7 +13,7 @@ export default function (): Game {
         suit,
         rank,
         flipped: false,
-        id: useId(),
+        id: uuidv4(),
       });
     });
   });
@@ -31,12 +32,12 @@ export default function (): Game {
             return card;
           }),
         type: "tableauPile",
-        id: useId(),
+        id: uuidv4(),
       });
     }
   );
 
-  const foundationPiles: Pile[] = [];
+  /*const foundationPiles: Pile[] = [];
 
   Suits.forEach((suit: Suit) => {
     const cards: Card[] = [];
@@ -46,7 +47,7 @@ export default function (): Game {
         suit,
         rank,
         flipped: true,
-        id: useId(),
+        id: uuidv4(),
       });
     });
 
@@ -54,78 +55,77 @@ export default function (): Game {
       cards,
       suit,
       type: "foundation",
-      id: useId(),
+      id: uuidv4(),
     });
-  });
+  });*/
 
-  /*
   return {
     piles: [
       {
         cards: [],
         suit: "clubs",
         type: "foundation",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [],
         suit: "diamonds",
         type: "foundation",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [],
         suit: "hearts",
         type: "foundation",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [],
         suit: "spades",
         type: "foundation",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: shuffledDeck,
         type: "stock",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [],
         type: "waste",
-        id: useId(),
+        id: uuidv4(),
       },
       ...tableauPiles,
     ],
-  };*/
+  };
 
-  return {
+  /*return {
     piles: [
       ...foundationPiles,
       {
         cards: [],
         type: "stock",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [],
         type: "waste",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [],
         type: "tableauPile",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [],
         type: "tableauPile",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [],
         type: "tableauPile",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [
@@ -133,11 +133,11 @@ export default function (): Game {
             suit: "clubs",
             rank: 12,
             flipped: true,
-            id: useId(),
+            id: uuidv4(),
           },
         ],
         type: "tableauPile",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [
@@ -145,11 +145,11 @@ export default function (): Game {
             suit: "diamonds",
             rank: 12,
             flipped: true,
-            id: useId(),
+            id: uuidv4(),
           },
         ],
         type: "tableauPile",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [
@@ -157,11 +157,11 @@ export default function (): Game {
             suit: "hearts",
             rank: 12,
             flipped: true,
-            id: useId(),
+            id: uuidv4(),
           },
         ],
         type: "tableauPile",
-        id: useId(),
+        id: uuidv4(),
       },
       {
         cards: [
@@ -169,12 +169,12 @@ export default function (): Game {
             suit: "spades",
             rank: 12,
             flipped: true,
-            id: useId(),
+            id: uuidv4(),
           },
         ],
         type: "tableauPile",
-        id: useId(),
+        id: uuidv4(),
       },
     ],
-  };
+  };*/
 }

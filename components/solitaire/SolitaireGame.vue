@@ -33,9 +33,12 @@
         />
       </div>
     </div>
-    <div class="flex gap-2 justify-end max-sm:px-2">
-      <button class="cursor-not-allowed">Undo</button>
-      <button class="cursor-not-allowed">Redo</button>
+    <div class="flex gap-2 justify-between max-sm:px-2">
+      <button @click="reset">Reset</button>
+      <div class="flex gap-2">
+        <button class="cursor-not-allowed">Undo</button>
+        <button class="cursor-not-allowed">Redo</button>
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +49,7 @@ import type { CardSelection } from "@/assets/types/game";
 const {
   moveCard,
   clickStock,
+  reset,
   foundations,
   waste,
   stock,
