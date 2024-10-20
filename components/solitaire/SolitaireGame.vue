@@ -7,7 +7,7 @@
       <div>Score: {{ score }}</div>
     </div>
     <div
-      class="bg-green-800 p-1 gap-x-1 gap-y-2 grid grid-rows-[auto,1fr] grid-cols-7 overflow-hidden"
+      class="bg-green-800 p-1 gap-x-1 gap-y-2 grid grid-rows-[auto,1fr] grid-cols-7 overflow-hidden max-sm:border-y-2 sm:border-2 border-black sm:rounded-lg"
     >
       <div class="col-span-4 grid grid-cols-4 gap-1">
         <SolitairePile
@@ -34,10 +34,14 @@
       </div>
     </div>
     <div class="flex gap-2 justify-between max-sm:px-2">
-      <button @click="reset">Reset</button>
+      <button class="btn btn-primary" @click="reset">Reset</button>
       <div class="flex gap-2">
-        <button class="cursor-not-allowed">Undo</button>
-        <button class="cursor-not-allowed">Redo</button>
+        <button disabled class="cursor-not-allowed btn btn-primary">
+          Undo
+        </button>
+        <button disabled class="cursor-not-allowed btn btn-primary">
+          Redo
+        </button>
       </div>
     </div>
   </div>
