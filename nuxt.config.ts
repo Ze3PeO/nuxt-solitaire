@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     },
   },
   css: ["~/assets/css/main.css"],
-  modules: ["@vueuse/nuxt"],
+  modules: ["@vueuse/nuxt", "@nuxthub/core"],
   postcss: {
     plugins: {
       tailwindcss: {},
