@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/": { ssr: false },
+    "/stats": { ssr: false },
     "/about": { prerender: true },
   },
 });

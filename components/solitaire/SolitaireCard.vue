@@ -47,8 +47,6 @@ const selectedCard = inject(selectedCardKey, ref(null));
 watch(selectedCard, () => {
   selected.value = selectedCard.value?.cardId === props.id;
 });
-
-// ToDo Custom focus styling
 </script>
 
 <style lang="postcss" scoped>

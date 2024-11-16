@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>Welcome to the stats page</h1>
+  <div class="mx-auto max-w-screen-xl w-full h-full p-2">
+    <h1 class="text-center mb-4">Your solitaire statistics</h1>
     <!-- ssr? -->
     <table>
       <thead>
@@ -18,7 +18,11 @@
         </tr>
       </tbody>
     </table>
-    <button @click="onResetStats">Reset stats</button>
+    <div class="flex justify-end">
+      <button class="btn btn-primary mt-4" @click="onResetStats">
+        Reset stats
+      </button>
+    </div>
   </div>
 </template>
 
@@ -32,3 +36,24 @@ const onResetStats = () => {
   stats.value = [];
 };
 </script>
+
+<style lang="postcss" scoped>
+table {
+  @apply w-full border-collapse;
+}
+
+table,
+th,
+td {
+  @apply border-2 border-black;
+}
+
+th,
+td {
+  @apply p-2;
+}
+
+th {
+  @apply text-left bg-black text-white font-bold;
+}
+</style>

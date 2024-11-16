@@ -37,28 +37,6 @@ export default function (): Game {
     }
   );
 
-  /*const foundationPiles: Pile[] = [];
-
-  Suits.forEach((suit: Suit) => {
-    const cards: Card[] = [];
-
-    Array.from({ length: 12 }, (value, index) => index).forEach((rank) => {
-      cards.push({
-        suit,
-        rank,
-        flipped: true,
-        id: uuidv4(),
-      });
-    });
-
-    foundationPiles.push({
-      cards,
-      suit,
-      type: "foundation",
-      id: uuidv4(),
-    });
-  });*/
-
   return {
     piles: [
       {
@@ -98,83 +76,4 @@ export default function (): Game {
       ...tableauPiles,
     ],
   };
-
-  /*return {
-    piles: [
-      ...foundationPiles,
-      {
-        cards: [],
-        type: "stock",
-        id: uuidv4(),
-      },
-      {
-        cards: [],
-        type: "waste",
-        id: uuidv4(),
-      },
-      {
-        cards: [],
-        type: "tableauPile",
-        id: uuidv4(),
-      },
-      {
-        cards: [],
-        type: "tableauPile",
-        id: uuidv4(),
-      },
-      {
-        cards: [],
-        type: "tableauPile",
-        id: uuidv4(),
-      },
-      {
-        cards: [
-          {
-            suit: "clubs",
-            rank: 12,
-            flipped: true,
-            id: uuidv4(),
-          },
-        ],
-        type: "tableauPile",
-        id: uuidv4(),
-      },
-      {
-        cards: [
-          {
-            suit: "diamonds",
-            rank: 12,
-            flipped: true,
-            id: uuidv4(),
-          },
-        ],
-        type: "tableauPile",
-        id: uuidv4(),
-      },
-      {
-        cards: [
-          {
-            suit: "hearts",
-            rank: 12,
-            flipped: true,
-            id: uuidv4(),
-          },
-        ],
-        type: "tableauPile",
-        id: uuidv4(),
-      },
-      {
-        cards: [
-          {
-            suit: "spades",
-            rank: 12,
-            flipped: true,
-            id: uuidv4(),
-          },
-        ],
-        type: "tableauPile",
-        id: uuidv4(),
-      },
-    ],
-  };*/
 }
