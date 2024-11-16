@@ -3,7 +3,7 @@
     class="mx-auto max-w-screen-sm h-full grid grid-rows-[auto,1fr,auto] gap-2 py-2"
   >
     <div class="flex gap-2 justify-between max-sm:px-2">
-      <div>Timer: {{ formatTime(timestamp) }}</div>
+      <div>Timer: {{ formatTime(time) }}</div>
       <div>Score: {{ score }}</div>
     </div>
     <div
@@ -20,16 +20,8 @@
       </div>
       <div></div>
       <div class="col-span-2 grid grid-cols-2 gap-1">
-        <SolitairePile
-          :cards="waste!.cards"
-          :id="waste!.id"
-          :type="waste!.type"
-        />
-        <SolitairePile
-          :cards="stock!.cards"
-          :id="stock!.id"
-          :type="stock!.type"
-        />
+        <SolitairePile :cards="waste.cards" :id="waste.id" :type="waste.type" />
+        <SolitairePile :cards="stock.cards" :id="stock.id" :type="stock.type" />
       </div>
       <div class="col-span-7 grid grid-cols-7 gap-1 min-h-0">
         <SolitairePile
@@ -44,12 +36,8 @@
     <div class="flex gap-2 justify-between max-sm:px-2">
       <button class="btn btn-primary" @click="reset">Reset</button>
       <div class="flex gap-2">
-        <button disabled class="cursor-not-allowed btn btn-primary">
-          Undo
-        </button>
-        <button disabled class="cursor-not-allowed btn btn-primary">
-          Redo
-        </button>
+        <button class="btn btn-primary" @click="undo">Undo</button>
+        <button class="btn btn-primary" @click="redo">Redo</button>
       </div>
     </div>
   </div>
@@ -62,12 +50,14 @@ const {
   moveCard,
   clickStock,
   reset,
+  undo,
+  redo,
   foundations,
   waste,
   stock,
   tableauPiles,
   score,
-  timestamp,
+  time,
 } = useSolitaire();
 
 const currentSelection = ref<CardSelection | null>(null);

@@ -2,26 +2,25 @@ import type { CardSelection, Game, Pile } from "@/assets/types/game";
 import type { Card } from "@/assets/types/card";
 import type { Stat } from "@/assets/types/stats";
 import { useStorage } from "@vueuse/core";
+import { useRefHistory } from "@vueuse/core";
 
 export const useSolitaire = () => {
   const game: Ref<Game> = ref<Game>(generateGame());
+  const { history, undo, redo } = useRefHistory(game, {
+    deep: true,
+  });
   // ToDo Moving cards directly from the Waste stack to a Foundation scores 10 points.
   // However, if the card is first moved to a Tableau, and then to a Foundation,
   // an extra 5 points are scored making a total of 15.
   // Thus, to score the most points, no cards should be moved directly from the Waste to Foundation.
   const score = ref<number>(0);
-  const start = Date.now();
+  const start = ref<number>(Date.now());
   const stats: Ref<Stat[]> = useStorage("stats", []);
 
   // Track two timestamps one for the timer and one for the score
-  const { timestamp, pause: pauseTimer } = useTimestamp({
-    offset: -start,
-    controls: true,
-    interval: 1000,
-  });
+  const timestamp = useTimestamp();
 
-  const { pause: pauseScore } = useTimestamp({
-    offset: -start,
+  const { pause: pauseScore, resume: resumeScore } = useTimestamp({
     interval: 10000,
     controls: true,
     callback: () => {
@@ -179,15 +178,14 @@ export const useSolitaire = () => {
 
     if (win) {
       pauseScore();
-      pauseTimer();
 
       // Add Bonus points
-      if (timestamp.value > 30000) {
-        score.value += Math.round(700000 / (timestamp.value / 1000));
+      if (time.value > 30000) {
+        score.value += Math.round(700000 / (time.value / 1000));
       }
 
       stats.value.push({
-        time: timestamp.value,
+        time: time.value,
         score: score.value,
         date: Date.now(),
       });
@@ -209,34 +207,42 @@ export const useSolitaire = () => {
 
   const reset = () => {
     game.value = generateGame();
+
     score.value = 0;
+    resumeScore();
+
+    start.value = Date.now();
   };
 
   const foundations = computed(() =>
     game.value.piles.filter((pile) => pile.type === "foundation")
   );
 
-  const waste = computed(() =>
-    game.value.piles.find((pile) => pile.type === "waste")
+  const waste = computed(
+    () => game.value.piles.find((pile) => pile.type === "waste")!
   );
 
-  const stock = computed(() =>
-    game.value.piles.find((pile) => pile.type === "stock")
+  const stock = computed(
+    () => game.value.piles.find((pile) => pile.type === "stock")!
   );
 
   const tableauPiles = computed(() =>
     game.value.piles.filter((pile) => pile.type === "tableauPile")
   );
 
+  const time = computed(() => timestamp.value - start.value);
+
   return {
     foundations: foundations,
-    waste: waste!,
-    stock: stock!,
+    waste: waste,
+    stock: stock,
     tableauPiles: tableauPiles,
     moveCard,
     clickStock,
     reset,
+    undo,
+    redo,
     score: readonly(score),
-    timestamp: readonly(timestamp),
+    time: readonly(time),
   };
 };
