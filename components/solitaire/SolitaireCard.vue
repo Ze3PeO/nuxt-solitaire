@@ -67,7 +67,7 @@ watch(selectedCard, () => {
 }
 
 .card--upturned {
-  @apply cursor-pointer hover:ring-2;
+  @apply cursor-pointer md:hover:ring-2;
 }
 
 .card--covered {

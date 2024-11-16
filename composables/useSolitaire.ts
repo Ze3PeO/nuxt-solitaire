@@ -18,7 +18,13 @@ export const useSolitaire = () => {
   const stats: Ref<Stat[]> = useStorage("stats", []);
 
   // Track two timestamps one for the timer and one for the score
-  const timestamp = useTimestamp();
+  const {
+    timestamp,
+    pause: pauseTimer,
+    resume: resumeTimer,
+  } = useTimestamp({
+    controls: true,
+  });
 
   const { pause: pauseScore, resume: resumeScore } = useTimestamp({
     interval: 10000,
@@ -178,6 +184,7 @@ export const useSolitaire = () => {
 
     if (win) {
       pauseScore();
+      pauseTimer();
 
       // Add Bonus points
       if (time.value > 30000) {
@@ -191,8 +198,10 @@ export const useSolitaire = () => {
       });
 
       useTimeoutFn(() => {
-        alert("You have won");
-      }, 1000);
+        if (confirm("You have won! Play again?")) {
+          reset();
+        }
+      }, 100);
     }
   };
 
@@ -207,11 +216,11 @@ export const useSolitaire = () => {
 
   const reset = () => {
     game.value = generateGame();
-
     score.value = 0;
-    resumeScore();
-
     start.value = Date.now();
+
+    resumeScore();
+    resumeTimer();
   };
 
   const foundations = computed(() =>
