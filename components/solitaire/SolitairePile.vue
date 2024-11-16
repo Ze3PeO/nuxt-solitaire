@@ -42,11 +42,10 @@
 
 <script setup lang="ts">
 import type { Card, Suit } from "@/assets/types/card";
-import type { DeepReadonly } from "vue";
 import type { Pile } from "@/assets/types/game";
 
 const props = defineProps<{
-  cards: DeepReadonly<Card[]>;
+  cards: Card[];
   suit?: Suit;
   fanned?: boolean;
   id: Pile["id"];

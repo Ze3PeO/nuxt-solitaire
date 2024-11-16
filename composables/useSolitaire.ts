@@ -4,7 +4,7 @@ import type { Stat } from "@/assets/types/stats";
 import { useStorage } from "@vueuse/core";
 
 export const useSolitaire = () => {
-  const game: Ref<Game> = useState("game", () => generateGame());
+  const game: Ref<Game> = ref<Game>(generateGame());
   // ToDo Moving cards directly from the Waste stack to a Foundation scores 10 points.
   // However, if the card is first moved to a Tableau, and then to a Foundation,
   // an extra 5 points are scored making a total of 15.
@@ -30,6 +30,9 @@ export const useSolitaire = () => {
   });
 
   const clickStock = () => {
+    const stock = game.value.piles.find((pile) => pile.type === "stock");
+    const waste = game.value.piles.find((pile) => pile.type === "waste");
+
     if (!stock || !waste) return;
 
     if (stock.cards.length > 0) {
@@ -209,16 +212,20 @@ export const useSolitaire = () => {
     score.value = 0;
   };
 
-  const foundations = game.value.piles.filter(
-    (pile) => pile.type === "foundation"
+  const foundations = computed(() =>
+    game.value.piles.filter((pile) => pile.type === "foundation")
   );
 
-  const waste = game.value.piles.find((pile) => pile.type === "waste");
+  const waste = computed(() =>
+    game.value.piles.find((pile) => pile.type === "waste")
+  );
 
-  const stock = game.value.piles.find((pile) => pile.type === "stock");
+  const stock = computed(() =>
+    game.value.piles.find((pile) => pile.type === "stock")
+  );
 
-  const tableauPiles = game.value.piles.filter(
-    (pile) => pile.type === "tableauPile"
+  const tableauPiles = computed(() =>
+    game.value.piles.filter((pile) => pile.type === "tableauPile")
   );
 
   return {

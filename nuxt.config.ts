@@ -21,4 +21,8 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  routeRules: {
+    "/": { ssr: false },
+    "/about": { prerender: true },
+  },
 });
