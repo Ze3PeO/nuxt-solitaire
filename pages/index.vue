@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "simple",
+  layout: "game",
 });
 </script>
 

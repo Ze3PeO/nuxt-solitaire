@@ -3,6 +3,7 @@ import type { Card } from "@/assets/types/card";
 import type { Stat } from "@/assets/types/stats";
 import { useStorage } from "@vueuse/core";
 import { useRefHistory } from "@vueuse/core";
+import { v4 as uuidv4 } from "uuid";
 
 export const useSolitaire = () => {
   const game: Ref<Game> = ref<Game>(generateGame());
@@ -102,7 +103,7 @@ export const useSolitaire = () => {
     pileDest: Pile,
     cardDest?: Card
   ): boolean => {
-    if (!canBePlacedOnTableauPile(cardSrc, cardDest)) return false;
+    if (!canBePlacedOnTableauPile(cardSrc, pileDest, cardDest)) return false;
 
     const idx = pileSrc.cards.findIndex((card: Card) => {
       return card.id === cardSrc.id;
@@ -150,12 +151,20 @@ export const useSolitaire = () => {
 
   const canBePlacedOnTableauPile = (
     cardToMove: Card,
+    tableauPile: Pile,
     topCard?: Card
   ): boolean => {
     if (!topCard && cardToMove.rank === 12) return true;
     if (!topCard) return false;
     if (cardToMove.rank !== topCard.rank - 1) return false;
     if (getCardColor(cardToMove) === getCardColor(topCard)) return false;
+
+    if (
+      tableauPile.cards.findIndex((card: Card) => card.id === topCard.id) !==
+      tableauPile.cards.length - 1
+    ) {
+      return false;
+    }
 
     return true;
   };
@@ -174,34 +183,50 @@ export const useSolitaire = () => {
     return true;
   };
 
-  const checkForWin = () => {
-    let win = true;
+  const autoFinish = () => {
+    if (!isAutoFinishPossible.value) return;
 
-    game.value.piles.forEach((pile) => {
-      if (pile.type === "foundation" && pile.cards.length !== 13) win = false;
-      if (pile.type !== "foundation" && pile.cards.length > 0) win = false;
+    // count remaining cards from the tableau and for each add 10 points to the score
+    tableauPiles.value.forEach((pile) => {
+      score.value += pile.cards.length * 10;
     });
 
-    if (win) {
-      pauseScore();
-      pauseTimer();
+    // If stock also has a card left add those 10 points
+    if (stock.value.cards.length === 1) {
+      score.value += 10;
+    }
 
-      // Add Bonus points
-      if (time.value > 30000) {
-        score.value += Math.round(700000 / (time.value / 1000));
-      }
+    // Empty each pile and then simply put kings onto the foundation piles to mock a win
+    game.value.piles.forEach((pile) => {
+      pile.cards = [];
+    });
 
-      stats.value.push({
-        time: time.value,
-        score: score.value,
-        date: Date.now(),
+    game.value.piles
+      .filter((pile) => pile.type === "foundation")
+      .forEach((pile) => {
+        if (!pile.suit) return;
+
+        pile.cards.push({
+          suit: pile.suit,
+          rank: 12,
+          flipped: true,
+          id: uuidv4(),
+        });
       });
 
-      useTimeoutFn(() => {
-        if (confirm("You have won! Play again?")) {
-          reset();
-        }
-      }, 100);
+    win();
+  };
+
+  const checkForWin = () => {
+    let isWin = true;
+
+    game.value.piles.forEach((pile) => {
+      if (pile.type === "foundation" && pile.cards.length !== 13) isWin = false;
+      if (pile.type !== "foundation" && pile.cards.length > 0) isWin = false;
+    });
+
+    if (isWin) {
+      win();
     }
   };
 
@@ -212,6 +237,28 @@ export const useSolitaire = () => {
       return "black";
     }
     return "black";
+  };
+
+  const win = () => {
+    pauseScore();
+    pauseTimer();
+
+    // Add Bonus points
+    if (time.value > 30000) {
+      score.value += Math.round(700000 / (time.value / 1000));
+    }
+
+    stats.value.push({
+      time: time.value,
+      score: score.value,
+      date: Date.now(),
+    });
+
+    useTimeoutFn(() => {
+      if (confirm("You have won! Play again?")) {
+        reset();
+      }
+    }, 100);
   };
 
   const reset = () => {
@@ -245,6 +292,24 @@ export const useSolitaire = () => {
 
   const time = computed(() => timestamp.value - start.value);
 
+  const isAutoFinishPossible = computed(() => {
+    let result = true;
+
+    game.value.piles.forEach((pile) => {
+      pile.cards.forEach((card) => {
+        if (!card.flipped) {
+          result = false;
+        }
+
+        if (!result) return;
+      });
+
+      if (!result) return;
+    });
+
+    return result;
+  });
+
   return {
     foundations: foundations,
     waste: waste,
@@ -252,10 +317,12 @@ export const useSolitaire = () => {
     tableauPiles: tableauPiles,
     moveCard,
     clickStock,
+    autoFinish,
     reset,
     undo,
     redo,
     score: readonly(score),
     time: readonly(time),
+    isAutoFinishPossible: readonly(isAutoFinishPossible),
   };
 };

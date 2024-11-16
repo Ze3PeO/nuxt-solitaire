@@ -34,7 +34,16 @@
       </div>
     </div>
     <div class="flex gap-2 justify-between max-sm:px-2">
-      <button class="btn btn-primary" @click="reset">Reset</button>
+      <div class="flex gap-2">
+        <button class="btn btn-primary" @click="reset">Reset</button>
+        <button
+          v-if="isAutoFinishPossible"
+          class="btn btn-primary"
+          @click="autoFinish"
+        >
+          Finish
+        </button>
+      </div>
       <div class="flex gap-2">
         <button class="btn btn-primary" @click="undo">Undo</button>
         <button class="btn btn-primary" @click="redo">Redo</button>
@@ -49,6 +58,7 @@ import type { CardSelection } from "@/assets/types/game";
 const {
   moveCard,
   clickStock,
+  autoFinish,
   reset,
   undo,
   redo,
@@ -58,6 +68,7 @@ const {
   tableauPiles,
   score,
   time,
+  isAutoFinishPossible,
 } = useSolitaire();
 
 const currentSelection = ref<CardSelection | null>(null);
@@ -86,6 +97,7 @@ provide(onCardSelectKey, (selection: CardSelection) => {
     currentSelection.value = null;
 
     // Reset focus
+    // ToDo also on missclick
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
