@@ -6,7 +6,7 @@ import { useRefHistory } from "@vueuse/core";
 
 export const useSolitaire = () => {
   const game: Ref<Game> = ref<Game>(generateGame());
-  const { history, undo, redo } = useRefHistory(game, {
+  const { commit, clear, undo, redo } = useRefHistory(game, {
     deep: true,
   });
   // ToDo Moving cards directly from the Waste stack to a Foundation scores 10 points.
@@ -218,6 +218,10 @@ export const useSolitaire = () => {
     game.value = generateGame();
     score.value = 0;
     start.value = Date.now();
+
+    // commit newly generated game and clear the rest of the history
+    commit();
+    clear();
 
     resumeScore();
     resumeTimer();
