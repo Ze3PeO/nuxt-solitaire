@@ -30,6 +30,6 @@
 
 <style lang="postcss" scoped>
 .link {
-  @apply p-2 hover:bg-black/25 rounded-lg;
+  @apply p-2 md:hover:bg-black/25 rounded-lg;
 }
 </style>

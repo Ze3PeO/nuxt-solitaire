@@ -84,6 +84,11 @@ provide(onCardSelectKey, (selection: CardSelection) => {
 
   if (result === "success") {
     currentSelection.value = null;
+
+    // Reset focus
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
   } else {
     currentSelection.value = selection;
   }

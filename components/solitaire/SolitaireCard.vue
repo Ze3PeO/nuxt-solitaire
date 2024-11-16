@@ -71,6 +71,6 @@ watch(selectedCard, () => {
 }
 
 .card--covered {
-  @apply hover:-mt-4;
+  @apply focus:-mt-4;
 }
 </style>
