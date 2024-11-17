@@ -1,8 +1,7 @@
 import type { CardSelection, Game, Pile } from "@/assets/types/game";
 import type { Card } from "@/assets/types/card";
 import type { Stat } from "@/assets/types/stats";
-import { useStorage } from "@vueuse/core";
-import { useRefHistory } from "@vueuse/core";
+import { useStorage, useRefHistory, useDocumentVisibility } from "@vueuse/core";
 import { v4 as uuidv4 } from "uuid";
 
 export const useSolitaire = () => {
@@ -15,12 +14,14 @@ export const useSolitaire = () => {
   // an extra 5 points are scored making a total of 15.
   // Thus, to score the most points, no cards should be moved directly from the Waste to Foundation.
   const score = ref<number>(0);
-  const start = ref<number>(Date.now());
+  const timerOffset = ref<number>(Date.now());
+  const pauseStartTime = ref<number>(0);
   const stats: Ref<Stat[]> = useStorage("stats", []);
+  const visibility = useDocumentVisibility();
 
   // Track two timestamps one for the timer and one for the score
   const {
-    timestamp,
+    timestamp: timer,
     pause: pauseTimer,
     resume: resumeTimer,
   } = useTimestamp({
@@ -33,6 +34,19 @@ export const useSolitaire = () => {
     callback: () => {
       score.value = Math.max(score.value - 2, 0);
     },
+  });
+
+  watch(visibility, (current, previous) => {
+    if (current === "visible" && previous === "hidden") {
+      // add time since pause start to timer offset
+      timerOffset.value += Date.now() - pauseStartTime.value;
+      resumeTimer();
+      resumeScore();
+    } else if (current === "hidden" && previous === "visible") {
+      pauseStartTime.value = Date.now();
+      pauseTimer();
+      pauseScore();
+    }
   });
 
   const clickStock = () => {
@@ -264,7 +278,7 @@ export const useSolitaire = () => {
   const reset = () => {
     game.value = generateGame();
     score.value = 0;
-    start.value = Date.now();
+    timerOffset.value = Date.now();
 
     // commit newly generated game and clear the rest of the history
     commit();
@@ -290,7 +304,7 @@ export const useSolitaire = () => {
     game.value.piles.filter((pile) => pile.type === "tableauPile")
   );
 
-  const time = computed(() => timestamp.value - start.value);
+  const time = computed(() => timer.value - timerOffset.value);
 
   const isAutoFinishPossible = computed(() => {
     let result = true;
