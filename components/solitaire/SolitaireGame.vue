@@ -1,8 +1,8 @@
 <template>
   <div
-    class="mx-auto max-w-screen-sm h-full grid grid-rows-[auto,1fr,auto] gap-2 py-2"
+    class="mx-auto max-w-screen-sm h-full grid grid-rows-[auto,1fr,auto] gap-1 sm:gap-2 py-1 sm:py-2"
   >
-    <div class="flex gap-2 justify-between max-sm:px-2">
+    <div class="flex gap-2 justify-between max-sm:px-1">
       <div>Timer: {{ formatTime(time) }}</div>
       <div>Score: {{ score }}</div>
     </div>
@@ -33,7 +33,7 @@
         />
       </div>
     </div>
-    <div class="flex gap-2 justify-between max-sm:px-2">
+    <div class="flex gap-2 justify-between max-sm:px-1">
       <div class="flex gap-2">
         <button class="btn btn-primary" @click="reset">Reset</button>
         <button
