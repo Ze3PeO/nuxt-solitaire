@@ -295,17 +295,19 @@ export const useSolitaire = () => {
   const isAutoFinishPossible = computed(() => {
     let result = true;
 
+    // check if all cards are flipped
     game.value.piles.forEach((pile) => {
       pile.cards.forEach((card) => {
         if (!card.flipped) {
           result = false;
         }
-
-        if (!result) return;
       });
-
-      if (!result) return;
     });
+
+    // check if stock and waste are empty
+    if (stock.value.cards.length !== 0 || waste.value.cards.length !== 0) {
+      result = false;
+    }
 
     return result;
   });

@@ -12,6 +12,7 @@ This is a nuxt implementation of the popular single-player card game Klondike So
 - [x] Add auto complete once all cards are flipped and on the tableau piles
 - [ ] Detect unwinnable game
 - [ ] Rework global stlying and add dark mode
+- [ ] Rework scoring system
 
 ## Setup
 
