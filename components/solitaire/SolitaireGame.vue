@@ -1,13 +1,9 @@
 <template>
   <div
-    class="mx-auto max-w-screen-sm h-full grid grid-rows-[auto,1fr,auto] gap-1 sm:gap-2 py-1 sm:py-2"
+    class="mx-auto max-w-screen-sm w-full min-h-0 h-full sm:p-2 gap-1 sm:gap-2 relative"
   >
-    <div class="flex gap-2 justify-between max-sm:px-1">
-      <div>Timer: {{ formatTime(time) }}</div>
-      <div>Score: {{ score }}</div>
-    </div>
     <div
-      class="bg-green-800 p-1 gap-x-1 gap-y-2 grid grid-rows-[auto,1fr] grid-cols-7 overflow-hidden max-sm:border-y-2 sm:border-2 border-black sm:rounded-lg"
+      class="h-full bg-green-800 p-2 gap-x-1 gap-y-2 grid grid-rows-[auto,1fr] grid-cols-7 overflow-hidden sm:border-2 border-black sm:rounded-lg"
     >
       <div class="col-span-4 grid grid-cols-4 gap-1">
         <SolitairePile
@@ -33,20 +29,28 @@
         />
       </div>
     </div>
-    <div class="flex gap-2 justify-between max-sm:px-1">
-      <div class="flex gap-2">
-        <button class="btn btn-primary" @click="reset">Reset</button>
-        <button
-          v-if="isAutoFinishPossible"
-          class="btn btn-primary"
-          @click="autoFinish"
-        >
-          Finish
-        </button>
+    <div
+      class="flex flex-col gap-2 p-2 sm:p-4 absolute bottom-0 left-0 right-0"
+    >
+      <div class="flex gap-2 justify-between text-white">
+        <div>Timer: {{ formatTime(time) }}</div>
+        <div>Score: {{ score }}</div>
       </div>
-      <div class="flex gap-2">
-        <button class="btn btn-primary" @click="undo">Undo</button>
-        <button class="btn btn-primary" @click="redo">Redo</button>
+      <div class="flex gap-2 justify-between">
+        <div class="flex gap-2">
+          <button class="btn btn-primary" @click="reset">Reset</button>
+          <button
+            v-if="isAutoFinishPossible"
+            class="btn btn-primary"
+            @click="autoFinish"
+          >
+            Finish
+          </button>
+        </div>
+        <div class="flex gap-2">
+          <button class="btn btn-primary" @click="undo">Undo</button>
+          <button class="btn btn-primary" @click="redo">Redo</button>
+        </div>
       </div>
     </div>
   </div>
