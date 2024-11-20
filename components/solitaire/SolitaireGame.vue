@@ -3,7 +3,7 @@
     class="mx-auto max-w-screen-sm w-full min-h-0 h-full sm:p-2 gap-1 sm:gap-2 relative"
   >
     <div
-      class="h-full bg-green-800 p-2 gap-x-1 gap-y-2 grid grid-rows-[auto,1fr] grid-cols-7 overflow-hidden sm:border-2 border-black sm:rounded-lg"
+      class="h-full bg-green-800 p-2 gap-x-1 gap-y-2 grid grid-rows-[auto,1fr] grid-cols-7 overflow-hidden sm:border-2 border-green-950 sm:rounded-lg"
     >
       <div class="col-span-4 grid grid-cols-4 gap-1">
         <SolitairePile

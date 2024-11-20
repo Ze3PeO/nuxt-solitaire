@@ -1,5 +1,5 @@
 <template>
-  <footer class="p-2 border-t-2 border-black bg-green-800 text-white">
+  <footer class="p-2 border-t-2 border-green-950 bg-green-900 text-white">
     <ul class="flex justify-center">
       <li>
         Made by

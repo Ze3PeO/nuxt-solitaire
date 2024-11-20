@@ -1,6 +1,8 @@
 <template>
-  <div class="h-svh w-screen sm:grid sm:grid-rows-[auto,1fr,auto] bg-slate-100">
-    <AppHeader class="max-sm:hidden" />
+  <div
+    class="h-svh w-screen grid grid-rows-[auto,1fr] sm:grid-rows-[auto,1fr,auto] bg-slate-100"
+  >
+    <AppHeader />
     <slot />
     <AppFooter class="max-sm:hidden" />
   </div>

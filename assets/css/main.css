@@ -26,6 +26,6 @@
   }
 
   .btn-primary {
-    @apply border-blue-700 bg-blue-600 text-white hover:bg-transparent hover:text-blue-600 focus:ring-blue-500 disabled:hover:bg-blue-600 disabled:hover:text-white;
+    @apply border-blue-700 bg-blue-600 text-white sm:hover:bg-transparent sm:hover:text-blue-600 focus:ring-blue-500 disabled:sm:hover:bg-blue-600 disabled:sm:hover:text-white;
   }
 }
