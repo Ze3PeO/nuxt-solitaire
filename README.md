@@ -13,6 +13,8 @@ This is a nuxt implementation of the popular single-player card game Klondike So
 - [ ] Detect unwinnable game
 - [ ] Rework global stlying and add dark mode
 - [ ] Rework scoring system
+- [ ] Save stats in real Database and link to user accounts
+- [ ] Translations
 
 ## Setup
 
