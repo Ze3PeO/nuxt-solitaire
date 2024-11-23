@@ -1,4 +1,6 @@
 export default function (rank: number): string {
+  // ToDo Format rank label based on locale
+
   const rankLabels: { [key: number]: string } = {
     0: "A",
     1: "2",

@@ -3,8 +3,11 @@
     <nav class="w-full">
       <ul class="flex gap-2 justify-center text-lg">
         <li>
-          <NuxtLink class="link" active-class="font-semibold underline" to="/"
-            >Home</NuxtLink
+          <NuxtLink
+            class="link"
+            active-class="font-semibold underline"
+            to="/"
+            >{{ $t("global.home") }}</NuxtLink
           >
         </li>
         <li>
@@ -12,7 +15,7 @@
             class="link"
             active-class="font-semibold underline"
             to="/stats"
-            >Stats</NuxtLink
+            >{{ $t("global.stats") }}</NuxtLink
           >
         </li>
         <li>
@@ -20,7 +23,7 @@
             class="link"
             active-class="font-semibold underline"
             to="/about"
-            >About</NuxtLink
+            >{{ $t("global.about") }}</NuxtLink
           >
         </li>
       </ul>

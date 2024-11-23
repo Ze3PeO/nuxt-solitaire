@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     },
   },
   css: ["~/assets/css/main.css"],
-  modules: ["@vueuse/nuxt", "@nuxthub/core", "@nuxt/icon"],
+  modules: ["@vueuse/nuxt", "@nuxthub/core", "@nuxt/icon", "@nuxtjs/i18n"],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -37,5 +37,9 @@ export default defineNuxtConfig({
         dir: "./assets/icons",
       },
     ],
+  },
+  i18n: {
+    defaultLocale: "en",
+    vueI18n: "./i18n.config.ts",
   },
 });

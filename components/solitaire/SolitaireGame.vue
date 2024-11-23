@@ -48,7 +48,7 @@
         <div class="flex gap-2">
           <button class="btn btn-primary btn-icon" @click="restart">
             <Icon name="icons:restart" />
-            <span class="max-sm:hidden">Restart</span>
+            <span class="max-sm:hidden">{{ $t("game.restart") }}</span>
           </button>
           <button
             v-if="isAutoFinishPossible"
@@ -56,17 +56,17 @@
             @click="autoFinish"
           >
             <Icon name="icons:check" />
-            <span class="max-sm:hidden">Finish</span>
+            <span class="max-sm:hidden">{{ $t("game.finish") }}</span>
           </button>
         </div>
         <div class="flex gap-2">
           <button class="btn btn-primary btn-icon" @click="undo">
             <Icon name="icons:undo" />
-            <span class="max-sm:hidden">Undo</span>
+            <span class="max-sm:hidden">{{ $t("game.undo") }}</span>
           </button>
           <button class="btn btn-primary btn-icon" @click="redo">
             <Icon name="icons:redo" />
-            <span class="max-sm:hidden">Redo</span>
+            <span class="max-sm:hidden">{{ $t("game.redo") }}</span>
           </button>
         </div>
       </div>

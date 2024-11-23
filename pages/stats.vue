@@ -1,13 +1,14 @@
 <template>
   <div class="mx-auto max-w-screen-xl w-full h-full p-2">
-    <h1 class="text-center mb-4">Your solitaire statistics</h1>
-    <!-- ssr? -->
+    <h1 class="text-center mb-4">
+      {{ $t("stats.title") }}
+    </h1>
     <table>
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Score</th>
+          <th>{{ $t("stats.table.header.date") }}</th>
+          <th>{{ $t("stats.table.header.time") }}</th>
+          <th>{{ $t("stats.table.header.score") }}</th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +21,7 @@
     </table>
     <div class="flex justify-end">
       <button class="btn btn-primary mt-4" @click="onResetStats">
-        Reset stats
+        {{ $t("stats.table.reset") }}
       </button>
     </div>
   </div>
