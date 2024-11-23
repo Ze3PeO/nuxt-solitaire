@@ -46,7 +46,7 @@
       </div>
       <div class="flex justify-between gap-2">
         <div class="flex gap-2">
-          <button class="btn btn-primary btn-icon" @click="reset">
+          <button class="btn btn-primary btn-icon" @click="restart">
             <Icon name="icons:restart" />
             <span class="max-sm:hidden">Restart</span>
           </button>
@@ -81,7 +81,7 @@ const {
   moveCard,
   clickStock,
   autoFinish,
-  reset,
+  restart,
   undo,
   redo,
   foundations,

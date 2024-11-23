@@ -291,12 +291,12 @@ export const useSolitaire = () => {
 
     useTimeoutFn(() => {
       if (confirm("You have won! Play again?")) {
-        reset();
+        restart();
       }
     }, 100);
   };
 
-  const reset = () => {
+  const restart = () => {
     game.value = generateGame();
     score.value = 0;
     gameHasStarted.value = false;
@@ -360,7 +360,7 @@ export const useSolitaire = () => {
     moveCard,
     clickStock,
     autoFinish,
-    reset,
+    restart,
     undo,
     redo,
     score: readonly(score),
