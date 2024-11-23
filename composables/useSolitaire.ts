@@ -16,6 +16,8 @@ export const useSolitaire = () => {
   const score = ref<number>(0);
   const timerOffset = ref<number>(Date.now());
   const pauseStartTime = ref<number>(0);
+  const gameHasStarted = ref<boolean>(false);
+  const autoFinishWasTriggered = ref<boolean>(false);
   const stats: Ref<Stat[]> = useStorage("stats", []);
   const visibility = useDocumentVisibility();
 
@@ -32,6 +34,8 @@ export const useSolitaire = () => {
     interval: 10000,
     controls: true,
     callback: () => {
+      if (!gameHasStarted.value) return;
+
       score.value = Math.max(score.value - 2, 0);
     },
   });
@@ -68,6 +72,8 @@ export const useSolitaire = () => {
       waste.cards = [];
       score.value = Math.max(score.value - 100, 0);
     }
+
+    startGame();
   };
 
   const moveCard = (
@@ -132,6 +138,8 @@ export const useSolitaire = () => {
 
     pileDest.cards.push(...toMove);
 
+    startGame();
+
     return true;
   };
 
@@ -157,6 +165,8 @@ export const useSolitaire = () => {
     }
 
     pileDest.cards.push(...toMove);
+
+    startGame();
 
     checkForWin();
 
@@ -197,8 +207,19 @@ export const useSolitaire = () => {
     return true;
   };
 
+  const startGame = () => {
+    if (gameHasStarted.value) return;
+
+    gameHasStarted.value = true;
+
+    timerOffset.value = Date.now();
+  };
+
   const autoFinish = () => {
     if (!isAutoFinishPossible.value) return;
+    if (autoFinishWasTriggered.value) return;
+
+    autoFinishWasTriggered.value = true;
 
     // count remaining cards from the tableau and for each add 10 points to the score
     tableauPiles.value.forEach((pile) => {
@@ -278,7 +299,8 @@ export const useSolitaire = () => {
   const reset = () => {
     game.value = generateGame();
     score.value = 0;
-    timerOffset.value = Date.now();
+    gameHasStarted.value = false;
+    autoFinishWasTriggered.value = false;
 
     // commit newly generated game and clear the rest of the history
     commit();
@@ -304,7 +326,11 @@ export const useSolitaire = () => {
     game.value.piles.filter((pile) => pile.type === "tableauPile")
   );
 
-  const time = computed(() => timer.value - timerOffset.value);
+  const time = computed(() => {
+    if (!gameHasStarted.value) return 0;
+
+    return timer.value - timerOffset.value;
+  });
 
   const isAutoFinishPossible = computed(() => {
     let result = true;

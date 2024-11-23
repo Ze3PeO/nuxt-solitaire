@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     },
   },
   css: ["~/assets/css/main.css"],
-  modules: ["@vueuse/nuxt", "@nuxthub/core"],
+  modules: ["@vueuse/nuxt", "@nuxthub/core", "@nuxt/icon"],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -25,5 +25,17 @@ export default defineNuxtConfig({
     "/": { ssr: false },
     "/stats": { ssr: false },
     "/about": { prerender: true },
+  },
+  icon: {
+    clientBundle: {
+      includeCustomCollections: true,
+      sizeLimitKb: 256,
+    },
+    customCollections: [
+      {
+        prefix: "icons",
+        dir: "./assets/icons",
+      },
+    ],
   },
 });
