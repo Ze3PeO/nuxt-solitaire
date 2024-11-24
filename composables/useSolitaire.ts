@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export const useSolitaire = () => {
   const game: Ref<Game> = ref<Game>(generateGame());
-  const { commit, clear, undo, redo } = useRefHistory(game, {
+  const { commit, clear, canUndo, undo, canRedo, redo } = useRefHistory(game, {
     deep: true,
   });
   // ToDo Moving cards directly from the Waste stack to a Foundation scores 10 points.
@@ -216,7 +216,7 @@ export const useSolitaire = () => {
   };
 
   const autoFinish = () => {
-    if (!isAutoFinishPossible.value) return;
+    if (!canAutoFinish.value) return;
     if (autoFinishWasTriggered.value) return;
 
     autoFinishWasTriggered.value = true;
@@ -332,7 +332,9 @@ export const useSolitaire = () => {
     return timer.value - timerOffset.value;
   });
 
-  const isAutoFinishPossible = computed(() => {
+  const canAutoFinish = computed(() => {
+    if (autoFinishWasTriggered.value) return false;
+
     let result = true;
 
     // check if all cards are flipped
@@ -352,19 +354,22 @@ export const useSolitaire = () => {
     return result;
   });
 
+  // ToDo maybe bundle actions in one object?
   return {
-    foundations: foundations,
-    waste: waste,
-    stock: stock,
-    tableauPiles: tableauPiles,
+    foundations,
+    waste,
+    stock,
+    tableauPiles,
     moveCard,
     clickStock,
     autoFinish,
+    canAutoFinish,
     restart,
+    canUndo,
     undo,
+    canRedo,
     redo,
-    score: readonly(score),
-    time: readonly(time),
-    isAutoFinishPossible: readonly(isAutoFinishPossible),
+    score,
+    time,
   };
 };

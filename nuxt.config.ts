@@ -10,6 +10,26 @@ export default defineNuxtConfig({
           name: "description",
           content: "Soliatire implementation made with Nuxt",
         },
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1.0, viewport-fit=cover",
+        },
+      ],
+      link: [
+        {
+          rel: "apple-touch-icon",
+          sizes: "120x120",
+          href: "/icons/icon-120x120.png",
+        },
+        {
+          rel: "apple-touch-icon",
+          sizes: "180x180",
+          href: "/icons/icon-180x180.png",
+        },
+        {
+          rel: "manifest",
+          href: "/manifest.json",
+        },
       ],
     },
   },

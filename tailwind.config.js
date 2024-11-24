@@ -9,8 +9,11 @@ export default {
     "./error.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      padding: {
+        "safe-2": "max(env(safe-area-inset-bottom), 0.5rem)",
+      },
+    },
   },
   plugins: [],
-}
-
+};

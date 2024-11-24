@@ -29,48 +29,17 @@
         />
       </div>
     </div>
-    <div
-      class="flex flex-col p-2 sm:p-4 relative sm:absolute sm:bottom-0 sm:inset-x-0 max-sm:border-t-2 max-sm:border-green-950 max-sm:bg-green-900"
-    >
-      <div
-        class="flex justify-between mb-2 max-sm:m-2 gap-2 max-sm:absolute max-sm:bottom-full max-sm:inset-x-0 text-white font-mono"
-      >
-        <div class="flex gap-1 items-center">
-          <Icon name="icons:timer" class="h-5 w-5" />
-          <span>{{ formatTime(time) }}</span>
-        </div>
-        <div class="flex gap-1 items-center">
-          <Icon name="icons:score" class="h-5 w-5" />
-          <span>{{ score }}</span>
-        </div>
-      </div>
-      <div class="flex justify-between gap-2">
-        <div class="flex gap-2">
-          <button class="btn btn-primary btn-icon" @click="restart">
-            <Icon name="icons:restart" />
-            <span class="max-sm:hidden">{{ $t("game.restart") }}</span>
-          </button>
-          <button
-            v-if="isAutoFinishPossible"
-            class="btn btn-primary btn-icon"
-            @click="autoFinish"
-          >
-            <Icon name="icons:check" />
-            <span class="max-sm:hidden">{{ $t("game.finish") }}</span>
-          </button>
-        </div>
-        <div class="flex gap-2">
-          <button class="btn btn-primary btn-icon" @click="undo">
-            <Icon name="icons:undo" />
-            <span class="max-sm:hidden">{{ $t("game.undo") }}</span>
-          </button>
-          <button class="btn btn-primary btn-icon" @click="redo">
-            <Icon name="icons:redo" />
-            <span class="max-sm:hidden">{{ $t("game.redo") }}</span>
-          </button>
-        </div>
-      </div>
-    </div>
+    <SolitaireActions
+      :time="time"
+      :score="score"
+      :restart="restart"
+      :can-auto-finish="canAutoFinish"
+      :auto-finish="autoFinish"
+      :can-undo="canUndo"
+      :undo="undo"
+      :can-redo="canRedo"
+      :redo="redo"
+    />
   </div>
 </template>
 
@@ -80,9 +49,12 @@ import type { CardSelection } from "@/assets/types/game";
 const {
   moveCard,
   clickStock,
+  canAutoFinish,
   autoFinish,
   restart,
+  canUndo,
   undo,
+  canRedo,
   redo,
   foundations,
   waste,
@@ -90,7 +62,6 @@ const {
   tableauPiles,
   score,
   time,
-  isAutoFinishPossible,
 } = useSolitaire();
 
 const currentSelection = ref<CardSelection | null>(null);
