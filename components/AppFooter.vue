@@ -1,5 +1,7 @@
 <template>
-  <footer class="p-2 border-t-2 border-green-950 bg-green-900 text-white">
+  <footer
+    class="p-2 max-sm:pb-safe-2 border-t-2 border-green-950 bg-green-900 text-white"
+  >
     <ul class="flex justify-center">
       <li>
         {{ $t("global.madeBy") }}
