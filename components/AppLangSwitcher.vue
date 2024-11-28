@@ -17,7 +17,7 @@ const { locale: activeLocale, locales, setLocale } = useI18n();
           <a
             class="py-1 px-2 md:hover:bg-black/25 rounded-lg block"
             :class="{
-              'underline font-bold': locale.code === activeLocale,
+              'underline font-semibold': locale.code === activeLocale,
             }"
             href="#"
             @click.prevent.stop="setLocale(locale.code)"

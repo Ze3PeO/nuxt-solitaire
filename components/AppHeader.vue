@@ -5,7 +5,7 @@ const localePath = useLocalePath();
 </script>
 
 <template>
-  <header class="p-2 border-b-2 border-green-950 bg-green-900 text-white">
+  <header class="p-1 border-b-2 border-green-950 bg-green-900 text-white">
     <nav class="w-full">
       <ul
         class="flex gap-2 justify-start sm:justify-center text-lg items-center relative"
@@ -44,6 +44,6 @@ const localePath = useLocalePath();
 
 <style lang="postcss" scoped>
 .link {
-  @apply p-2 md:hover:bg-black/25 rounded-lg;
+  @apply py-1 px-2 md:hover:bg-black/25 rounded-lg block;
 }
 </style>

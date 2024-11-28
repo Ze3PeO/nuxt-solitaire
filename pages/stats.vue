@@ -3,8 +3,13 @@
     <h1 class="text-center mb-4">
       {{ $t("stats.title") }}
     </h1>
-    <ClientOnly fallback-tag="span" fallback="Loading stats...">
+    <ClientOnly fallback-tag="fallback">
       <StatsTable />
+      <template #fallback>
+        <div class="w-full h-full flex justify-center items-center">
+          <AppLoadingSpinner />
+        </div>
+      </template>
     </ClientOnly>
   </div>
 </template>
