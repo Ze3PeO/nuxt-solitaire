@@ -19,6 +19,8 @@
         "time": "Temps",
         "score": "Score"
       },
+      "next": "Avant",
+      "previous": "Retour",
       "reset": "Réinitialiser les statistiques"
     }
   },

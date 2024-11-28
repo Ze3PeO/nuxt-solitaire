@@ -19,6 +19,8 @@
         "time": "Zeit",
         "score": "Punktzahl"
       },
+      "next": "Vor",
+      "previous": "Zurück",
       "reset": "Daten zurücksetzen"
     }
   },

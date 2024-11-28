@@ -11,11 +11,11 @@ This is a nuxt implementation of the popular single-player card game Klondike So
 - [x] Add about page with rules for example
 - [x] Add auto complete once all cards are flipped and on the tableau piles
 - [x] Translations
+- [x] Add filters to stats table
 - [ ] Detect unwinnable game
 - [ ] Rework global stlying and add dark mode
 - [ ] Rework scoring system
 - [ ] Save stats in real Database and link to user accounts
-- [ ] Add filters to stats table
 
 ## Setup
 
