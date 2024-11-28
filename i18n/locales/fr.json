@@ -1,0 +1,26 @@
+{
+  "global": {
+    "home": "Accueil",
+    "stats": "Statistiques",
+    "about": "Informations",
+    "madeBy": "Crée par"
+  },
+  "game": {
+    "restart": "Redémarrage",
+    "finish": "Finition",
+    "undo": "Défaire",
+    "redo": "Refaire"
+  },
+  "stats": {
+    "title": "Vos statistiques de solitaire",
+    "table": {
+      "header": {
+        "date": "Date",
+        "time": "Temps",
+        "score": "Score"
+      },
+      "reset": "Réinitialiser les statistiques"
+    }
+  },
+  "about": {}
+}

@@ -1,6 +1,12 @@
 <template>
+  <!-- ToDo Prerender this for different locales -->
+
   <div class="mx-auto max-w-screen-xl w-full h-full p-2">
     <h1 class="text-center mb-4">Welcome to the about page</h1>
+    <p class="mb-4 italic text-center">
+      Note: This page is currently only available in english. Sorry for any
+      inconvenience.
+    </p>
     <h2 class="mb-4">1. About Klondike Solitaire</h2>
     <p class="mb-4">
       Klondike Solitaire, often simply called Solitaire, is one of the most

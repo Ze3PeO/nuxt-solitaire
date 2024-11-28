@@ -5,5 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-  <SolitaireGame />
+  <ClientOnly fallback-tag="span" fallback="Loading game...">
+    <SolitaireGame />
+  </ClientOnly>
 </template>

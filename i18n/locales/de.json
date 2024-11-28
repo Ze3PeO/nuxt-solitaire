@@ -1,0 +1,26 @@
+{
+  "global": {
+    "home": "Start",
+    "stats": "Tabelle",
+    "about": "Info",
+    "madeBy": "Erstellt von"
+  },
+  "game": {
+    "restart": "Neustart",
+    "finish": "Beenden",
+    "undo": "Zurück",
+    "redo": "Vor"
+  },
+  "stats": {
+    "title": "Ihre Solitär Statistiken",
+    "table": {
+      "header": {
+        "date": "Datum",
+        "time": "Zeit",
+        "score": "Punktzahl"
+      },
+      "reset": "Daten zurücksetzen"
+    }
+  },
+  "about": {}
+}

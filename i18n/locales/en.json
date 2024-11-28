@@ -1,0 +1,26 @@
+{
+  "global": {
+    "home": "Home",
+    "stats": "Stats",
+    "about": "About",
+    "madeBy": "Made by"
+  },
+  "game": {
+    "restart": "Restart",
+    "finish": "Finish",
+    "undo": "Undo",
+    "redo": "Redo"
+  },
+  "stats": {
+    "title": "Your solitaire statistics",
+    "table": {
+      "header": {
+        "date": "Date",
+        "time": "Time",
+        "score": "Score"
+      },
+      "reset": "Reset statistics"
+    }
+  },
+  "about": {}
+}

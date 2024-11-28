@@ -1,12 +1,20 @@
+<script setup lang="ts">
+import AppLangSwitcher from "./AppLangSwitcher.vue";
+
+const localePath = useLocalePath();
+</script>
+
 <template>
   <header class="p-2 border-b-2 border-green-950 bg-green-900 text-white">
     <nav class="w-full">
-      <ul class="flex gap-2 justify-center text-lg">
+      <ul
+        class="flex gap-2 justify-start sm:justify-center text-lg items-center relative"
+      >
         <li>
           <NuxtLink
             class="link"
             active-class="font-semibold underline"
-            to="/"
+            :to="localePath('/')"
             >{{ $t("global.home") }}</NuxtLink
           >
         </li>
@@ -14,7 +22,7 @@
           <NuxtLink
             class="link"
             active-class="font-semibold underline"
-            to="/stats"
+            :to="localePath('/stats')"
             >{{ $t("global.stats") }}</NuxtLink
           >
         </li>
@@ -22,9 +30,12 @@
           <NuxtLink
             class="link"
             active-class="font-semibold underline"
-            to="/about"
+            :to="localePath('/about')"
             >{{ $t("global.about") }}</NuxtLink
           >
+        </li>
+        <li class="absolute right-0">
+          <AppLangSwitcher />
         </li>
       </ul>
     </nav>
