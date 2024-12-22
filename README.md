@@ -16,23 +16,18 @@ This is a nuxt implementation of the popular single-player card game Klondike So
 - [ ] Rework global stlying and add dark mode
 - [ ] Rework scoring system
 - [ ] Save stats in real Database and link to user accounts
+- [ ] Feedback
+    - Edit card color
+    - Edit button color
+    - Fix finish button -> can be triggerd again
+    - Fix timer from running again after revisiting tab after winning
 
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
@@ -40,17 +35,7 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -58,31 +43,11 @@ bun run dev
 Build the application for production:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
 pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
 pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
