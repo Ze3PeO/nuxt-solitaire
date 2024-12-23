@@ -19,8 +19,7 @@
         "time": "Temps",
         "score": "Score"
       },
-      "next": "Avant",
-      "previous": "Retour",
+      "empty": "Pas de statistiques",
       "reset": "Réinitialiser les statistiques"
     }
   },

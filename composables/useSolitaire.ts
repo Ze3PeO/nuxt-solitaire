@@ -54,6 +54,25 @@ export const useSolitaire = () => {
   });
 
   const clickStock = () => {
+    // Get today's date
+    const today = new Date();
+
+    // Get yesterday's date
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    // Generate a random timestamp between yesterday and today
+    const randomTimestamp = Math.random() * (today.getTime() - yesterday.getTime()) + yesterday.getTime();
+
+    // Convert the timestamp to a Date object
+    const randomDate = new Date(randomTimestamp);
+
+    stats.value.push({
+      time: Math.floor(Math.random() * (1000000 - 100000 + 1)) + 100000,
+      score: Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000,
+      date: randomDate,
+    });
+
     const stock = game.value.piles.find((pile) => pile.type === "stock");
     const waste = game.value.piles.find((pile) => pile.type === "waste");
 

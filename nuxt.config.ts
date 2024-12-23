@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     },
   },
   css: ["~/assets/css/main.css"],
-  modules: ["@vueuse/nuxt", "@nuxthub/core", "@nuxt/icon", "@nuxtjs/i18n"],
+  modules: ["@vueuse/nuxt", "@nuxthub/core", "@nuxtjs/i18n", "@nuxt/ui"],
   postcss: {
     plugins: {
       tailwindcss: {},

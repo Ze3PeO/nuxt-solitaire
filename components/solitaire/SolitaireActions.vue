@@ -16,36 +16,51 @@
     </div>
     <div class="flex justify-between gap-8">
       <div class="flex gap-2">
-        <button class="btn btn-primary btn-icon" @click="restart">
-          <Icon name="icons:restart" />
-          <span class="max-sm:hidden">{{ $t("game.restart") }}</span>
-        </button>
-        <button
-          class="btn btn-primary btn-icon"
+        <UButton
+          icon="icons:restart"
+          color="primary"
+          variant="solid"
+          @click="restart"
+        >
+          <template #trailing>
+            <span class="max-sm:hidden">{{ $t('game.restart') }}</span>
+          </template>
+        </UButton>
+        <UButton
+          icon="icons:check"
+          color="primary"
+          variant="solid"
           @click="autoFinish"
           :disabled="!canAutoFinish"
         >
-          <Icon name="icons:check" />
-          <span class="max-sm:hidden">{{ $t("game.finish") }}</span>
-        </button>
+          <template #trailing>
+            <span class="max-sm:hidden">{{ $t('game.finish') }}</span>
+          </template>
+        </UButton>
       </div>
       <div class="flex gap-2">
-        <button
-          class="btn btn-primary btn-icon"
+        <UButton
+          icon="icons:undo"
+          color="primary"
+          variant="solid"
           @click="undo"
           :disabled="!canUndo"
         >
-          <Icon name="icons:undo" />
-          <span class="max-sm:hidden">{{ $t("game.undo") }}</span>
-        </button>
-        <button
-          class="btn btn-primary btn-icon"
+          <template #trailing>
+            <span class="max-sm:hidden">{{ $t('game.undo') }}</span>
+          </template>
+        </UButton>
+        <UButton
+          icon="icons:redo"
+          color="primary"
+          variant="solid"
           @click="redo"
           :disabled="!canRedo"
         >
-          <Icon name="icons:redo" />
-          <span class="max-sm:hidden">{{ $t("game.redo") }}</span>
-        </button>
+          <template #trailing>
+            <span class="max-sm:hidden">{{ $t('game.redo') }}</span>
+          </template>
+        </UButton>
       </div>
     </div>
   </div>

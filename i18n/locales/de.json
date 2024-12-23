@@ -19,8 +19,7 @@
         "time": "Zeit",
         "score": "Punktzahl"
       },
-      "next": "Vor",
-      "previous": "Zurück",
+      "empty": "Keine Statistiken",
       "reset": "Daten zurücksetzen"
     }
   },

@@ -19,8 +19,7 @@
         "time": "Time",
         "score": "Score"
       },
-      "next": "Next",
-      "previous": "Previous",
+      "empty": "No statistics",
       "reset": "Reset statistics"
     }
   },
