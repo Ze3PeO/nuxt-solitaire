@@ -1,6 +1,6 @@
 <template>
   <div class="base">
-    <span v-if="suit">{{ formatSuit(suit) }}</span>
+    <Icon v-if="suit" :name="`icons:${suit}`" />
   </div>
 </template>
 

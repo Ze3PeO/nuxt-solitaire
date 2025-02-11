@@ -9,13 +9,11 @@
       'card--covered': covered && flipped,
     }"
   >
-    <div v-if="flipped" class="flex justify-between">
+    <div v-if="flipped" class="flex justify-between items-center">
       <span>
         {{ formatRank(rank) }}
       </span>
-      <span>
-        {{ formatSuit(suit) }}
-      </span>
+      <Icon :name="`icons:${suit}`" />
     </div>
   </div>
 </template>
@@ -51,7 +49,7 @@ watch(selectedCard, () => {
 
 <style lang="postcss" scoped>
 .card {
-  @apply focus:ring-4 focus:ring-red-600 focus:outline-none ring-yellow-600 select-none transition-[margin] aspect-[5/7] text-black rounded p-px sm:p-0.5 bg-white border-2 border-slate-300 shadow-md text-sm sm:text-lg;
+  @apply font-serif focus:ring-4 focus:ring-red-600 focus:outline-none ring-yellow-600 select-none transition-[margin] aspect-[5/7] text-black rounded p-px sm:p-0.5 bg-white border-2 border-slate-300 shadow-md text-sm sm:text-lg;
 }
 
 .card--facedown {
